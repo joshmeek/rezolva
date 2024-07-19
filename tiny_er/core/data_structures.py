@@ -4,10 +4,11 @@ from dataclasses import dataclass, field
 @dataclass
 class Entity:
     """
-    Represents a single entity with a unique identifier and attributes.
+    Represents a single entity with a unique identifier, attributes, and original IDs.
     """
     id: str
     attributes: Dict[str, Any]
+    original_ids: List[str] = field(default_factory=list)
 
     def __hash__(self):
         return hash(self.id)

@@ -15,13 +15,14 @@ class EntityResolver:
         self.matcher = matcher
         self.config = config or {}
 
-    def resolve(self, entities: List[Entity]) -> List[Cluster]:
+    def resolve(self, entities: List[Entity]) -> List[Entity]:
         preprocessed_entities = self.preprocessor.preprocess(entities)
         blocks = self.blocker.block(preprocessed_entities)
         comparisons = self._generate_comparisons(blocks)
         matches = self.matcher.match(comparisons)
         clusters = self._group_matches(matches, preprocessed_entities)
-        return clusters
+        resolved_entities = self._consolidate_clusters(clusters)
+        return resolved_entities
 
     def _generate_comparisons(self, blocks: List[Block]) -> List[Comparison]:
         comparisons = []
@@ -33,8 +34,8 @@ class EntityResolver:
         return comparisons
 
     def _group_matches(self, matches: List[MatchResult], entities: List[Entity]) -> List[Cluster]:
-        entity_to_cluster = {}
         clusters = []
+        entity_to_cluster = {}
 
         for match in matches:
             if match.is_match:
@@ -54,27 +55,44 @@ class EntityResolver:
                     cluster1.add(entity2)
                     entity_to_cluster[entity2] = cluster1
                 elif cluster1 != cluster2:
-                    # Merge clusters
                     cluster1.merge(cluster2)
                     clusters.remove(cluster2)
                     for entity in cluster2:
                         entity_to_cluster[entity] = cluster1
 
-        # Add singleton clusters for unmatched entities
+        # Add remaining unmatched entities as single-entity clusters
         for entity in entities:
             if entity not in entity_to_cluster:
-                singleton_cluster = Cluster({entity})
-                clusters.append(singleton_cluster)
-                entity_to_cluster[entity] = singleton_cluster
+                cluster = Cluster({entity})
+                clusters.append(cluster)
+                entity_to_cluster[entity] = cluster
 
         return clusters
 
-    def add_custom_step(self, step_name: str, custom_function: Callable[[Any], Any]):
-        setattr(self, step_name, custom_function)
+    def _consolidate_clusters(self, clusters: List[Cluster]) -> List[Entity]:
+        resolved_entities = []
+        for cluster in clusters:
+            if cluster.entities:
+                resolved_entity = self._merge_entities(list(cluster.entities))
+                resolved_entities.append(resolved_entity)
+        return resolved_entities
 
-    def run_custom_step(self, step_name: str, input_data: Any) -> Any:
-        if hasattr(self, step_name):
-            custom_function = getattr(self, step_name)
-            return custom_function(input_data)
-        else:
-            raise AttributeError(f"Custom step '{step_name}' not found")
+    def _merge_entities(self, entities: List[Entity]) -> Entity:
+        if not entities:
+            return None
+        
+        merged_attributes = {}
+        original_ids = []
+        for entity in entities:
+            original_ids.extend(entity.original_ids or [entity.id])
+            for attr, value in entity.attributes.items():
+                if attr not in merged_attributes:
+                    merged_attributes[attr] = []
+                merged_attributes[attr].append(value)
+        
+        # Resolve conflicts by choosing the most frequent value
+        for attr, values in merged_attributes.items():
+            merged_attributes[attr] = max(set(values), key=values.count)
+        
+        return Entity(id=f"resolved_{'_'.join(sorted(set(original_ids)))}", attributes=merged_attributes, original_ids=list(set(original_ids)))
+
