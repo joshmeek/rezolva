@@ -25,10 +25,6 @@ Minimalist entity resolution. No dependencies. Pure Python.
 from tiny_er.core.entity_resolver import EntityResolver
 from tiny_er.core.config import get_config
 from tiny_er.core.data_structures import Entity
-from tiny_er.preprocessing.normalizer import create_normalizer
-from tiny_er.blocking.standard_blocking import create_blocker
-from tiny_er.similarity.string_similarity import create_similarity_measure
-from tiny_er.matching.rule_based import create_matcher
 
 # Sample data
 entities = [
@@ -47,12 +43,7 @@ config['similarity'] = {'method': 'jaccard', 'threshold': 0.3}
 config['matching'] = {'method': 'threshold', 'threshold': 0.3}
 
 # Create EntityResolver
-resolver = EntityResolver(
-    create_normalizer(config['preprocessing']),
-    create_blocker(config['blocking']),
-    create_similarity_measure(config['similarity']),
-    create_matcher(config['matching'])
-)
+resolver = EntityResolver(config=config)
 
 # Resolve entities
 resolved_entities = resolver.resolve(entities)
@@ -129,62 +120,76 @@ Extend base classes to create custom components:
 ```python
 from tiny_er.core.entity_resolver import EntityResolver
 from tiny_er.core.config import get_config
-from tiny_er.core.data_structures import Entity, Block
-from tiny_er.core.base_classes import Blocker
+from tiny_er.core.data_structures import Entity, Block, MatchResult, Comparison
+from tiny_er.core.base_classes import Blocker, Matcher
 from tiny_er.preprocessing.normalizer import create_normalizer
-from tiny_er.similarity.string_similarity import create_similarity_measure
-from tiny_er.matching.rule_based import create_matcher
+from tiny_er.similarity.vector_similarity import create_vector_similarity_measure
 
-class MultiFieldBlocker(Blocker):
-    def __init__(self, blocking_fields):
-        self.blocking_fields = blocking_fields
+class ImprovedProfessionBlocker(Blocker):
+    def __init__(self, profession_field):
+        self.profession_field = profession_field
 
     def block(self, entities):
-        blocks = {}
+        blocks = {
+            'tech': Block('tech'),
+            'data': Block('data'),
+            'other': Block('other')
+        }
         for entity in entities:
-            block_key = self._create_block_key(entity)
-            if block_key not in blocks:
-                blocks[block_key] = Block(block_key)
-            blocks[block_key].add(entity)
+            profession = entity.attributes.get(self.profession_field, '').lower()
+            if 'engineer' in profession or 'developer' in profession:
+                blocks['tech'].add(entity)
+            elif 'scientist' in profession or 'analyst' in profession:
+                blocks['data'].add(entity)
+            else:
+                blocks['other'].add(entity)
         return list(blocks.values())
 
-    def _create_block_key(self, entity):
-        key_parts = []
-        for field in self.blocking_fields:
-            value = entity.attributes.get(field, '')
-            key_parts.append(value[:1].lower() if value else '_')
-        return ''.join(key_parts)
+class ThresholdMatcher(Matcher):
+    def __init__(self, threshold):
+        self.threshold = threshold
+
+    def match(self, comparisons):
+        return [MatchResult(comparison.entity1, comparison.entity2, comparison.similarity, comparison.similarity >= self.threshold)
+                for comparison in comparisons]
 
 # Sample data
 entities = [
-    Entity("1", {"name": "John Doe", "email": "john@example.com", "phone": "123-456-7890", "city": "New York"}),
-    Entity("2", {"name": "Jane Doe", "email": "jane@example.com", "phone": "987-654-3210", "city": "Los Angeles"}),
-    Entity("3", {"name": "J. Doe", "email": "john@example.com", "phone": "123-456-7890", "city": "New York"}),
-    Entity("4", {"name": "Jane Smith", "email": "janes@example.com", "phone": "555-555-5555", "city": "Chicago"}),
-    Entity("5", {"name": "John Smith", "email": "johns@example.com", "phone": "111-222-3333", "city": "New York"})
+    Entity("1", {"name": "John Doe", "email": "john@example.com", "profession": "Software Engineer", "bio": "Experienced software developer with 5 years in the field"}),
+    Entity("2", {"name": "Jane Doe", "email": "jane@example.com", "profession": "Data Scientist", "bio": "Data scientist specializing in machine learning and AI"}),
+    Entity("3", {"name": "J. Doe", "email": "jdoe@example.com", "profession": "Software Developer", "bio": "Full-stack developer with expertise in web technologies"}),
+    Entity("4", {"name": "Jane Smith", "email": "janes@example.com", "profession": "Data Analyst", "bio": "Data analyst with strong statistical background"}),
+    Entity("5", {"name": "John Smith", "email": "johns@example.com", "profession": "Project Manager", "bio": "IT project manager with 10 years of experience"})
 ]
 
 # Configuration
 config = get_config()
 config['preprocessing'] = {'lowercase': True, 'remove_punctuation': True, 'remove_whitespace': True}
-config['similarity'] = {'method': 'jaccard', 'threshold': 0.7}
-config['matching'] = {'method': 'threshold', 'threshold': 0.7}
+config['similarity'] = {
+    'method': 'cosine',
+    'fields': ['name', 'profession', 'bio'],
+    'threshold': 0.3
+}
+config['matching'] = {'threshold': 0.3}
+config['evaluation'] = {'metrics': ['precision', 'recall', 'f1_score']}
 
-# Create custom blocker
-custom_blocker = MultiFieldBlocker(blocking_fields=['name', 'city'])
+# Create components
+preprocessor = create_normalizer(config['preprocessing'])
+blocker = ImprovedProfessionBlocker(profession_field='profession')
+similarity_measure = create_vector_similarity_measure(config['similarity'])
+matcher = ThresholdMatcher(config['matching']['threshold'])
 
-# Create EntityResolver with custom blocker
+# Create EntityResolver
 resolver = EntityResolver(
-    create_normalizer(config['preprocessing']),
-    custom_blocker,
-    create_similarity_measure(config['similarity']),
-    create_matcher(config['matching'])
+    preprocessor=preprocessor,
+    blocker=blocker,
+    similarity_measure=similarity_measure,
+    matcher=matcher
 )
 
 # Resolve entities
 resolved_entities = resolver.resolve(entities)
 
-# Print results
 print("Resolved Entities:")
 for entity in resolved_entities:
     print(f"Resolved ID: {entity.id}")
@@ -194,22 +199,14 @@ for entity in resolved_entities:
 
 # Evaluate results
 from tiny_er.evaluation.metrics import evaluate
-from tiny_er.core.data_structures import MatchResult
 
 true_matches = [
-    ('1', '3'),  # John Doe and J. Doe are the same person
-    ('2', '4')   # Jane Doe and Jane Smith are the same person (this won't be caught due to different cities)
+    ('1', '3'),  # John Doe and J. Doe are both software developers
+    ('2', '4')   # Jane Doe and Jane Smith are both in data-related professions
 ]
 
-predicted_matches = [
-    MatchResult(Entity(id1, {}), Entity(id2, {}), 1.0, True)
-    for resolved_entity in resolved_entities
-    for id1 in resolved_entity.original_ids
-    for id2 in resolved_entity.original_ids
-    if id1 < id2
-]
-
-metrics = evaluate(true_matches, predicted_matches, config={'metrics': ['precision', 'recall', 'f1_score']})
+predicted_matches = create_match_results(resolved_entities)
+metrics = evaluate(true_matches, predicted_matches, config['evaluation'])
 
 print("\nEvaluation Metrics:")
 for metric, value in metrics.items():

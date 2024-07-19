@@ -1,19 +1,24 @@
 from typing import List, Callable, Any, Dict
 from .data_structures import Entity, Cluster, Comparison, MatchResult, Block
 from .base_classes import Preprocessor, Blocker, SimilarityMeasure, Matcher
+from ..preprocessing.normalizer import create_normalizer
+from ..blocking.standard_blocking import create_blocker
+from ..similarity.string_similarity import create_similarity_measure
+from ..matching.rule_based import create_matcher
 
 class EntityResolver:
     def __init__(self,
-                 preprocessor: Preprocessor,
-                 blocker: Blocker,
-                 similarity_measure: SimilarityMeasure,
-                 matcher: Matcher,
+                 preprocessor: Preprocessor = None,
+                 blocker: Blocker = None,
+                 similarity_measure: SimilarityMeasure = None,
+                 matcher: Matcher = None,
                  config: Dict[str, Any] = None):
-        self.preprocessor = preprocessor
-        self.blocker = blocker
-        self.similarity_measure = similarity_measure
-        self.matcher = matcher
         self.config = config or {}
+        self.preprocessor = preprocessor or create_normalizer(self.config.get('preprocessing', {}))
+        self.blocker = blocker or create_blocker(self.config.get('blocking', {'block_key': 'name'}))
+        self.similarity_measure = similarity_measure or create_similarity_measure(self.config.get('similarity', {}))
+        self.matcher = matcher or create_matcher(self.config.get('matching', {}))
+
 
     def resolve(self, entities: List[Entity]) -> List[Entity]:
         preprocessed_entities = self.preprocessor.preprocess(entities)
