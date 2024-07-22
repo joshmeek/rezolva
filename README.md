@@ -4,7 +4,6 @@ Minimalist entity resolution. No dependencies. Pure Python.
 
 ## Ethos
 
-- **Tiny**: Entire library in <1000 lines of code
 - **Zero Dependencies**: Built with Python standard library only
 - **Simplicity**: Clean API. Easy to understand, use, and modify
 - **Educational**: Clear implementation of ER concepts
