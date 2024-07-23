@@ -31,70 +31,11 @@ new_entities = [
 ]
 
 # Resolve entities
-results = resolver.resolve(new_entities, top_k=2)
+results = resolver.resolve(new_entities)
 
 # Print results
 for entity, matches in results:
-    print(f"Top 3 matches for {entity.id} - {entity.attributes['title']}:")
-    for match, score in matches:
-        print(f"  Match: {match.id} - {match.attributes['title']} (Score: {score:.2f})")
-    print()
-
-
-from tiny_er import EntityResolver, Entity, SimplePreprocessor, SimpleModelBuilder, SimpleBlocker
-from tiny_er.matchers import TfIdfMatcher
-from tiny_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
-
-# Custom preprocessing function
-def extract_product_type(entity: Entity) -> Entity:
-    title = str(entity.attributes.get('title', '')).lower()
-    if 'phone' in title or 'smartphone' in title:
-        product_type = 'phone'
-    elif 'laptop' in title or 'notebook' in title:
-        product_type = 'laptop'
-    else:
-        product_type = 'other'
-    return Entity(entity.id, {**entity.attributes, 'product_type': product_type})
-
-# Set up components
-preprocessor = SimplePreprocessor([
-    lowercase,
-    strip_whitespace,
-    remove_punctuation,
-    extract_product_type
-])
-
-attribute_weights = {'title': 2.0, 'description': 1.5, 'brand': 1.0, 'product_type': 0.5}
-model_builder = SimpleModelBuilder(list(attribute_weights.keys()))
-matcher = TfIdfMatcher(threshold=0.6, attribute_weights=attribute_weights)
-blocker = SimpleBlocker(lambda e: str(e.attributes.get('product_type', '')))
-
-# Create resolver
-resolver = EntityResolver(preprocessor, model_builder, matcher, blocker)
-
-# Training data
-training_entities = [
-    Entity("1", {"title": "iPhone 12", "description": "Latest Apple smartphone", "brand": "Apple"}),
-    Entity("2", {"title": "Galaxy S21", "description": "Samsung's flagship phone", "brand": "Samsung"}),
-    Entity("3", {"title": "MacBook Pro", "description": "Powerful Apple laptop", "brand": "Apple"}),
-    Entity("4", {"title": "Dell XPS 13", "description": "Compact high-performance notebook", "brand": "Dell"}),
-]
-
-# Train the resolver
-resolver.train(training_entities)
-
-# New entities to resolve
-new_entities = [
-    Entity("5", {"title": "iPhone 12 Pro", "description": "Apple's premium smartphone", "brand": "Apple"}),
-    Entity("6", {"title": "Surface Laptop 4", "description": "Microsoft's sleek notebook", "brand": "Microsoft"}),
-]
-
-# Resolve entities
-results = resolver.resolve(new_entities, top_k=2)
-
-# Print results
-for entity, matches in results:
-    print(f"Top 2 matches for {entity.id} - {entity.attributes['title']}:")
-    for match, score in matches:
+    print(f"Top matches for {entity.id} - {entity.attributes['title']}:")
+    for match, score in matches[:2]:  # Limiting to top 2 matches
         print(f"  Match: {match.id} - {match.attributes['title']} (Score: {score:.2f})")
     print()

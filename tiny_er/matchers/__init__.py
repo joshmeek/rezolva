@@ -3,3 +3,5 @@ from .levenshtein_matcher import LevenshteinMatcher
 from .jaro_winkler_matcher import JaroWinklerMatcher
 from .cosine_similarity_matcher import CosineSimilarityMatcher
 from .tfidf_matcher import TfIdfMatcher
+from .bayesian_matcher import BayesianMatcher
+from .minhash_matcher import MinHashMatcher
