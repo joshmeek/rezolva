@@ -1,30 +1,15 @@
-from ..core.base import Matcher, Entity
-from typing import List, Tuple
 
-class JaccardMatcher(Matcher):
-    def __init__(self, threshold: float = 0.3):
-        self.threshold = threshold
+from .base_matcher import BaseAttributeMatcher
 
-    def match(self, entity: Entity, model: dict) -> List[Tuple[Entity, float]]:
-        candidate_ids = set()
-        for attr in model['index']:
-            value = entity.attributes.get(attr, '').lower()
-            if value in model['index'][attr]:
-                candidate_ids.update(model['index'][attr][value])
+class JaccardMatcher(BaseAttributeMatcher):
+    def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
+        set1 = set(val1.lower().split())
+        set2 = set(val2.lower().split())
         
-        matches = []
-        for candidate_id in candidate_ids:
-            if candidate_id != entity.id:
-                candidate = model['entities'][candidate_id]
-                similarity = self._calculate_similarity(entity, candidate)
-                if similarity >= self.threshold:
-                    matches.append((candidate, similarity))
+        if not set1 and not set2:
+            return 1.0
         
-        return sorted(matches, key=lambda x: x[1], reverse=True)
-
-    def _calculate_similarity(self, entity1: Entity, entity2: Entity) -> float:
-        set1 = set(str(v).lower() for v in entity1.attributes.values())
-        set2 = set(str(v).lower() for v in entity2.attributes.values())
         intersection = len(set1 & set2)
         union = len(set1 | set2)
-        return intersection / union if union > 0 else 0.0
+        
+        return intersection / union

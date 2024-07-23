@@ -13,7 +13,7 @@ class EntityResolver:
         preprocessed_entities = [self.preprocessor.preprocess(e) for e in entities]
         self.model = self.model_builder.train(preprocessed_entities)
 
-    def resolve(self, entities: List[Entity]) -> List[Tuple[Entity, List[Tuple[Entity, float]]]]:
+    def resolve(self, entities: List[Entity], top_k: int = 1) -> List[Tuple[Entity, List[Tuple[Entity, float]]]]:
         if not self.model:
             raise ValueError("Model not trained. Call train() first.")
         
@@ -25,7 +25,7 @@ class EntityResolver:
             for entity in block:
                 matches = self.matcher.match(entity, self.model)
                 if matches:
-                    results.append((entity, matches))
+                    results.append((entity, matches[:top_k]))
         
         return results
 

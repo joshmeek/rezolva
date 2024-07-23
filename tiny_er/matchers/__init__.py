@@ -1,0 +1,5 @@
+from .jaccard_matcher import JaccardMatcher
+from .levenshtein_matcher import LevenshteinMatcher
+from .jaro_winkler_matcher import JaroWinklerMatcher
+from .cosine_similarity_matcher import CosineSimilarityMatcher
+from .tfidf_matcher import TfIdfMatcher
