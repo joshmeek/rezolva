@@ -11,6 +11,7 @@ _**start-er**_ is a lightweight, flexible, and extensible entity resolution libr
 - Defaults: out-of-the-box implementations of ER algorithms
 - Flexible: adaptable to various ER scenarios
 - Evaluation: utilities for testing precision, recall, F1, accuracy
+- Visualization: trace candidates through the resolution process
 
 ## Installation
 
