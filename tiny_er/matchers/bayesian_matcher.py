@@ -1,52 +1,57 @@
+# tiny_er/matchers/bayesian_matcher.py
+
+from ..core.base import Matcher, Entity
+from typing import List, Tuple, Dict
 import math
-from typing import Dict, List, Tuple
-
-from ..core.base import Entity, Matcher
-
 
 class BayesianMatcher(Matcher):
     def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}
-        self.priors = {}
-        self.likelihoods = {}
+        self.attribute_probabilities = {}
 
     def train(self, entities: List[Entity]):
-        # Calculate priors and likelihoods based on training data
         total_entities = len(entities)
-        for attr, weight in self.attribute_weights.items():
-            self.priors[attr] = {}
-            self.likelihoods[attr] = {}
+        for attr in self.attribute_weights.keys():
+            self.attribute_probabilities[attr] = {}
+            value_counts = {}
             for entity in entities:
                 value = entity.attributes.get(attr, '')
-                self.priors[attr][value] = self.priors[attr].get(value, 0) + 1
-                for other_entity in entities:
-                    if other_entity.id != entity.id:
-                        other_value = other_entity.attributes.get(attr, '')
-                        if value == other_value:
-                            self.likelihoods[attr][value] = self.likelihoods[attr].get(value, 0) + 1
+                value_counts[value] = value_counts.get(value, 0) + 1
+            
+            for value, count in value_counts.items():
+                self.attribute_probabilities[attr][value] = count / total_entities
 
-            # Normalize priors and likelihoods
-            for value in self.priors[attr]:
-                self.priors[attr][value] /= total_entities
-                self.likelihoods[attr][value] = self.likelihoods[attr].get(value, 0) / (self.priors[attr][value] * total_entities)
-
-    def match(self, entity: Entity, candidates: List[Entity]) -> List[Tuple[Entity, float]]:
+    def match(self, entity: Entity, model: Dict) -> List[Tuple[Entity, float]]:
         matches = []
-        for candidate in candidates:
-            if candidate.id != entity.id:
-                probability = self._calculate_match_probability(entity, candidate)
-                if probability >= self.threshold:
-                    matches.append((candidate, probability))
+        for candidate_id, candidate in model['entities'].items():
+            if candidate_id != entity.id:
+                similarity = self._calculate_similarity(entity, candidate)
+                if similarity >= self.threshold:
+                    matches.append((candidate, similarity))
         return sorted(matches, key=lambda x: x[1], reverse=True)
 
-    def _calculate_match_probability(self, entity1: Entity, entity2: Entity) -> float:
-        total_probability = 1.0
+    def _calculate_similarity(self, entity1: Entity, entity2: Entity) -> float:
+        total_similarity = 0
+        total_weight = sum(self.attribute_weights.values())
+
         for attr, weight in self.attribute_weights.items():
             value1 = entity1.attributes.get(attr, '')
             value2 = entity2.attributes.get(attr, '')
-            prior = self.priors[attr].get(value1, 1e-10)  # Small non-zero value to avoid division by zero
-            likelihood = self.likelihoods[attr].get(value1, 1e-10) if value1 == value2 else 1 - self.likelihoods[attr].get(value1, 1e-10)
-            attr_probability = (likelihood * prior) / ((likelihood * prior) + ((1 - likelihood) * (1 - prior)))
-            total_probability *= attr_probability ** weight
-        return total_probability
+            
+            if value1 == value2:
+                prob = self.attribute_probabilities[attr].get(value1, 0.5)
+                similarity = 1 - prob  # Rarer matches are more significant
+            else:
+                similarity = self._jaccard_similarity(value1, value2)
+            
+            total_similarity += similarity * (weight / total_weight)
+
+        return total_similarity
+
+    def _jaccard_similarity(self, s1: str, s2: str) -> float:
+        set1 = set(s1.lower().split())
+        set2 = set(s2.lower().split())
+        intersection = len(set1.intersection(set2))
+        union = len(set1.union(set2))
+        return intersection / union if union > 0 else 0
