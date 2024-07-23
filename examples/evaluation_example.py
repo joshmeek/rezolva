@@ -1,12 +1,18 @@
 import random
 from typing import List, Tuple
-from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
-from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
-from start_er.core.base import Blocker, Matcher
 
+from start_er import (Entity, EntityResolver, SimpleBlocker,
+                      SimpleModelBuilder, SimplePreprocessor)
+from start_er.core.base import Blocker, Matcher
+from start_er.matchers import CosineSimilarityMatcher
+from start_er.preprocessors.preprocessing_functions import (lowercase,
+                                                            remove_punctuation,
+                                                            strip_whitespace)
 # Import the evaluation utilities
-from start_er.utils.evaluation import evaluate_resolver, generate_performance_report, cross_validate, print_cross_validation_report
+from start_er.utils.evaluation import (cross_validate, evaluate_resolver,
+                                       generate_performance_report,
+                                       print_cross_validation_report)
+
 
 # Custom components
 class CustomBlocker(Blocker):

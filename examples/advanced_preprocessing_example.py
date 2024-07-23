@@ -1,9 +1,13 @@
-from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
+from start_er import (Entity, EntityResolver, SimpleBlocker,
+                      SimpleModelBuilder, SimplePreprocessor)
 from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import (
-    lowercase, strip_whitespace, remove_punctuation, remove_accents,
-    normalize_phone, extract_initials
-)
+from start_er.preprocessors.preprocessing_functions import (extract_initials,
+                                                            lowercase,
+                                                            normalize_phone,
+                                                            remove_accents,
+                                                            remove_punctuation,
+                                                            strip_whitespace)
+
 
 def custom_brand_normalizer(value):
     brand_mapping = {

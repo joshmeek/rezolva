@@ -1,6 +1,8 @@
-from typing import List, Dict, Any
-from start_er import Entity, EntityResolver
 import json
+from typing import Any, Dict, List
+
+from start_er import Entity, EntityResolver
+
 
 class ResolutionVisualizer:
     def __init__(self, resolver: EntityResolver):

@@ -1,6 +1,9 @@
 from typing import Any, Dict, List, Tuple
-from start_er import Entity, EntityResolver, SimplePreprocessor, SimpleModelBuilder
+
+from start_er import (Entity, EntityResolver, SimpleModelBuilder,
+                      SimplePreprocessor)
 from start_er.core.base import Blocker, Matcher
+
 
 class CustomBlocker(Blocker):
     def create_blocks(self, entities: List[Entity]) -> Dict[str, List[Entity]]:

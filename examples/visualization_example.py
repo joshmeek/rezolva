@@ -1,7 +1,9 @@
-from start_er import Entity, EntityResolver
-from start_er import SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
+from start_er import (Entity, EntityResolver, SimpleBlocker,
+                      SimpleModelBuilder, SimplePreprocessor)
 from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
+from start_er.preprocessors.preprocessing_functions import (lowercase,
+                                                            remove_punctuation,
+                                                            strip_whitespace)
 from start_er.utils.visualization import visualize_resolution_process
 
 # Set up a sample resolver

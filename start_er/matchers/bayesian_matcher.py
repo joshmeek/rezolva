@@ -1,8 +1,10 @@
 # start_er/matchers/bayesian_matcher.py
 
-from ..core.base import Matcher, Entity
-from typing import List, Tuple, Dict
 import math
+from typing import Dict, List, Tuple
+
+from ..core.base import Entity, Matcher
+
 
 class BayesianMatcher(Matcher):
     def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):

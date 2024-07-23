@@ -1,13 +1,12 @@
 import unittest
 from unittest.mock import Mock, patch
+
 from start_er import Entity, EntityResolver
-from start_er.utils.evaluation import (
-    calculate_precision_recall_f1,
-    calculate_accuracy,
-    evaluate_resolver,
-    generate_performance_report,
-    cross_validate
-)
+from start_er.utils.evaluation import (calculate_accuracy,
+                                       calculate_precision_recall_f1,
+                                       cross_validate, evaluate_resolver,
+                                       generate_performance_report)
+
 
 class TestEvaluationUtils(unittest.TestCase):
 

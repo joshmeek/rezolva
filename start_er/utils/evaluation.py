@@ -1,6 +1,8 @@
 import math
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
+
 from start_er import Entity, EntityResolver
+
 
 def calculate_precision_recall_f1(true_positives: int, false_positives: int, false_negatives: int) -> Tuple[float, float, float]:
     precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) > 0 else 0

@@ -1,7 +1,9 @@
-from start_er import Entity, EntityResolver, SimplePreprocessor, SimpleBlocker
-from start_er.model_builders import SimpleVectorModelBuilder
+from start_er import Entity, EntityResolver, SimpleBlocker, SimplePreprocessor
 from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
+from start_er.model_builders import SimpleVectorModelBuilder
+from start_er.preprocessors.preprocessing_functions import (lowercase,
+                                                            remove_punctuation,
+                                                            strip_whitespace)
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

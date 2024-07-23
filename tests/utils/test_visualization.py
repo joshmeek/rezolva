@@ -1,7 +1,10 @@
 import unittest
 from unittest.mock import Mock, patch
+
 from start_er import Entity, EntityResolver
-from start_er.utils.visualization import ResolutionVisualizer, visualize_resolution_process
+from start_er.utils.visualization import (ResolutionVisualizer,
+                                          visualize_resolution_process)
+
 
 class TestResolutionVisualizer(unittest.TestCase):
 
