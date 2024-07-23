@@ -1,6 +1,6 @@
 import unittest
 
-from tiny_er.core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
+from start_er.core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
                                ModelBuilder, Preprocessor)
 
 

@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from tiny_er.preprocessors.preprocessing_functions import (
+from start_er.preprocessors.preprocessing_functions import (
     extract_initials, format_date, format_phone, lowercase, normalize_address,
     normalize_email, normalize_name, normalize_phone, parse_date,
     remove_accents, remove_punctuation, remove_stopwords,

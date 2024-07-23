@@ -1,8 +1,8 @@
 import math
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.matchers.tfidf_matcher import TfIdfMatcher
+from start_er.core.base import Entity
+from start_er.matchers.tfidf_matcher import TfIdfMatcher
 
 
 class TestTfIdfMatcher(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.preprocessors.simple_preprocessor import SimplePreprocessor
+from start_er.core.base import Entity
+from start_er.preprocessors.simple_preprocessor import SimplePreprocessor
 
 
 class TestSimplePreprocessor(unittest.TestCase):

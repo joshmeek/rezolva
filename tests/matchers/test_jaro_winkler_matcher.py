@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.matchers.jaro_winkler_matcher import JaroWinklerMatcher
+from start_er.core.base import Entity
+from start_er.matchers.jaro_winkler_matcher import JaroWinklerMatcher
 
 
 class TestJaroWinklerMatcher(unittest.TestCase):

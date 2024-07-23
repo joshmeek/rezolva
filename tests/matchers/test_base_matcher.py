@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.matchers.base_matcher import BaseAttributeMatcher
+from start_er.core.base import Entity
+from start_er.matchers.base_matcher import BaseAttributeMatcher
 
 
 class DummyMatcher(BaseAttributeMatcher):

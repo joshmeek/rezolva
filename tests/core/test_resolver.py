@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
 
-from tiny_er.core.base import Entity
-from tiny_er.core.resolver import EntityResolver
+from start_er.core.base import Entity
+from start_er.core.resolver import EntityResolver
 
 
 class TestEntityResolver(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.matchers.jaccard_matcher import JaccardMatcher
+from start_er.core.base import Entity
+from start_er.matchers.jaccard_matcher import JaccardMatcher
 
 
 class TestJaccardMatcher(unittest.TestCase):

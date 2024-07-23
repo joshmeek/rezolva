@@ -1,4 +1,4 @@
-# tiny_er/matchers/bayesian_matcher.py
+# start_er/matchers/bayesian_matcher.py
 
 from ..core.base import Matcher, Entity
 from typing import List, Tuple, Dict

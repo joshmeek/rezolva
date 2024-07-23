@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.matchers.bayesian_matcher import BayesianMatcher
+from start_er.core.base import Entity
+from start_er.matchers.bayesian_matcher import BayesianMatcher
 
 
 class TestBayesianMatcher(unittest.TestCase):

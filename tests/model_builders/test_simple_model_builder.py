@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.model_builders.simple_model_builder import SimpleModelBuilder
+from start_er.core.base import Entity
+from start_er.model_builders.simple_model_builder import SimpleModelBuilder
 
 
 class TestSimpleModelBuilder(unittest.TestCase):

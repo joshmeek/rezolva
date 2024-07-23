@@ -2,7 +2,7 @@
 
 **Entity resolution for everyone. Minimal. No Dependencies.**
 
-Tiny ER is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects.
+_**start-er**_ is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects.
 
 ## Features
 
@@ -14,7 +14,7 @@ Tiny ER is a lightweight, flexible, and extensible entity resolution library imp
 ## Installation
 
 ```bash
-pip install tiny-er
+pip install start-er
 ```
 
 ## Quick Start
@@ -22,9 +22,9 @@ pip install tiny-er
 Here's a simple example of how to use Tiny ER:
 
 ```python
-from tiny_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
-from tiny_er.matchers import CosineSimilarityMatcher
-from tiny_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
+from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
+from start_er.matchers import CosineSimilarityMatcher
+from start_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])
@@ -59,7 +59,7 @@ for entity, matches in results:
 
 ## Advanced Usage
 
-For more advanced examples, including custom preprocessing, different matching algorithms, and model saving/loading, please check the [`examples`](https://github.com/joshmeek/tiny-er/tree/main/examples) directory in the repository.
+For more advanced examples, including custom preprocessing, different matching algorithms, and model saving/loading, please check the [`examples`](https://github.com/joshmeek/start-er/tree/main/examples) directory in the repository.
 
 ## Customization
 

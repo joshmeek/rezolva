@@ -2,8 +2,8 @@ import json
 import os
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.data_handlers.json_handlers import JSONDataLoader, JSONDataSaver
+from start_er.core.base import Entity
+from start_er.data_handlers.json_handlers import JSONDataLoader, JSONDataSaver
 
 
 class TestJSONHandlers(unittest.TestCase):

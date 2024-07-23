@@ -1,6 +1,6 @@
-from tiny_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
-from tiny_er.matchers import CosineSimilarityMatcher
-from tiny_er.preprocessors.preprocessing_functions import (
+from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
+from start_er.matchers import CosineSimilarityMatcher
+from start_er.preprocessors.preprocessing_functions import (
     lowercase, strip_whitespace, remove_punctuation, remove_accents,
     normalize_phone, extract_initials
 )

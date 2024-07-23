@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.blockers.lsh_blocker import LSHBlocker
-from tiny_er.core.base import Entity
+from start_er.blockers.lsh_blocker import LSHBlocker
+from start_er.core.base import Entity
 
 
 class TestLSHBlocker(unittest.TestCase):

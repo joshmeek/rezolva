@@ -1,8 +1,8 @@
-from tiny_er import Entity, EntityResolver, SimplePreprocessor
-from tiny_er.matchers import BayesianMatcher
-from tiny_er.blockers import LSHBlocker
-from tiny_er.model_builders import SimpleModelBuilder
-from tiny_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
+from start_er import Entity, EntityResolver, SimplePreprocessor
+from start_er.matchers import BayesianMatcher
+from start_er.blockers import LSHBlocker
+from start_er.model_builders import SimpleModelBuilder
+from start_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

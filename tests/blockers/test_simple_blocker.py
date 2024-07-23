@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.blockers.simple_blocker import SimpleBlocker
-from tiny_er.core.base import Entity
+from start_er.blockers.simple_blocker import SimpleBlocker
+from start_er.core.base import Entity
 
 
 class TestSimpleBlocker(unittest.TestCase):

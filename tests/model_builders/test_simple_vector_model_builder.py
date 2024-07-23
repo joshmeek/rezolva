@@ -1,8 +1,8 @@
 import math
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.model_builders.simple_vector_model_builder import \
+from start_er.core.base import Entity
+from start_er.model_builders.simple_vector_model_builder import \
     SimpleVectorModelBuilder
 
 

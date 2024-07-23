@@ -1,7 +1,7 @@
 import unittest
 
-from tiny_er.core.base import Entity
-from tiny_er.model_builders.phonetic_model_builder import PhoneticModelBuilder
+from start_er.core.base import Entity
+from start_er.model_builders.phonetic_model_builder import PhoneticModelBuilder
 
 
 class TestPhoneticModelBuilder(unittest.TestCase):
