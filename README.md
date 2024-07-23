@@ -1,4 +1,4 @@
-# Tiny ER
+# start-er
 
 **Entity resolution for everyone. Minimal. No Dependencies.**
 
