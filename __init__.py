@@ -1,23 +1,28 @@
-from .core.entity_resolver import EntityResolver
-from .core.config import get_config
-from .preprocessing.normalizer import create_normalizer
-from .blocking.standard_blocking import create_blocker
-from .similarity.string_similarity import create_similarity_measure
-from .matching.rule_based import create_matcher
-from .evaluation.metrics import evaluate
-from .utils.data_loader import load_csv, load_json, save_results
+# Import main components
+from .core.resolver import EntityResolver
+from .core.base import Entity, Preprocessor, ModelBuilder, Matcher, Blocker
 
+# Import default implementations
+from .preprocessors.simple_preprocessor import SimplePreprocessor
+from .model_builders.simple_model_builder import SimpleModelBuilder
+from .matchers.jaccard_matcher import JaccardMatcher
+from .blockers.simple_blocker import SimpleBlocker
+
+# Define what should be available when someone does `from tiny_er import *`
 __all__ = [
     'EntityResolver',
-    'get_config',
-    'create_normalizer',
-    'create_blocker',
-    'create_similarity_measure',
-    'create_matcher',
-    'evaluate',
-    'load_csv',
-    'load_json',
-    'save_results'
+    'Entity',
+    'Preprocessor',
+    'ModelBuilder',
+    'Matcher',
+    'Blocker',
+    'SimplePreprocessor',
+    'SimpleModelBuilder',
+    'JaccardMatcher',
+    'SimpleBlocker',
 ]
 
+# Optionally, you can include package metadata
 __version__ = '0.1.0'
+__author__ = 'Josh Meek'
+__email__ = 'mail@josh.dev'

@@ -1,225 +1,177 @@
-# tiny_er
+# Tiny ER
 
-Minimalist entity resolution. No dependencies. Pure Python.
+**Minimalist entity resolution. No dependencies. Pure Python.**
 
-## Ethos
-
-- **Tiny**: Entire library in <1000 lines of code
-- **Zero Dependencies**: Built with Python standard library only
-- **Simplicity**: Clean API. Easy to understand, use, and modify
-- **Educational**: Clear implementation of ER concepts
-- **Flexible**: Adaptable to various ER scenarios
+Tiny ER is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects.
 
 ## Features
 
-- Preprocessing & normalization
-- Blocking strategies
-- Similarity measures
-- Rule-based & probabilistic matching
-- Evaluation metrics
-- Customizable
+- Zero dependencies: Built with Python standard library only
+- Modular architecture: Easy to customize and extend
+- Educational: Clear implementation of ER concepts
+- Flexible: Adaptable to various ER scenarios
+
+## Installation
+
+```bash
+pip install tiny-er
+```
 
 ## Quick Start
 
-```python
-from tiny_er.core.entity_resolver import EntityResolver
-from tiny_er.core.config import get_config
-from tiny_er.core.data_structures import Entity
+Here's a simple example of how to use Tiny ER:
 
-# Sample data
-entities = [
+```python
+from tiny_er import EntityResolver, Entity, SimplePreprocessor, SimpleModelBuilder, JaccardMatcher, SimpleBlocker
+
+# Set up components
+preprocessor = SimplePreprocessor()
+model_builder = SimpleModelBuilder(['name', 'email', 'phone'])
+matcher = JaccardMatcher(threshold=0.5)
+blocker = SimpleBlocker(lambda e: e.attributes['name'][0].lower())
+
+# Create resolver
+resolver = EntityResolver(preprocessor, model_builder, matcher, blocker)
+
+# Training data
+training_entities = [
     Entity("1", {"name": "John Doe", "email": "john@example.com", "phone": "123-456-7890"}),
-    Entity("2", {"name": "Jane Doe", "email": "jane@example.com", "phone": "987-654-3210"}),
-    Entity("3", {"name": "J. Doe", "email": "john@example.com", "phone": "123-456-7890"}),
-    Entity("4", {"name": "Jane Smith", "email": "jane@example.com", "phone": "555-555-5555"}),
-    Entity("5", {"name": "John Smith", "email": "johnsmith@example.com", "phone": "111-222-3333"})
+    Entity("2", {"name": "Jane Smith", "email": "jane@example.com", "phone": "987-654-3210"}),
 ]
 
-# Configuration
-config = get_config()
-config['preprocessing'] = {'lowercase': True, 'remove_punctuation': True, 'remove_whitespace': True}
-config['blocking'] = {'method': 'standard', 'block_key': 'name'}
-config['similarity'] = {'method': 'jaccard', 'threshold': 0.3}
-config['matching'] = {'method': 'threshold', 'threshold': 0.3}
+# Train the resolver
+resolver.train(training_entities)
 
-# Create EntityResolver
-resolver = EntityResolver(config=config)
+# New entities to resolve
+new_entities = [
+    Entity("3", {"name": "Jon Doe", "email": "john@gmail.com", "phone": "123-456-7890"}),
+    Entity("4", {"name": "Jane Smith", "email": "jsmith@example.com", "phone": "987-654-3210"}),
+]
 
 # Resolve entities
-resolved_entities = resolver.resolve(entities)
+results = resolver.resolve(new_entities)
 
 # Print results
-print("Resolved Entities:")
-for entity in resolved_entities:
-    print(f"Resolved ID: {entity.id}")
-    print(f"Original IDs: {entity.original_ids}")
-    print(f"Attributes: {entity.attributes}")
-    print("---")
+for entity, matches in results:
+    print(f"Matches for {entity.id} - {entity.attributes['name']}:")
+    for match, score in matches:
+        print(f"  Match: {match.id} - {match.attributes['name']} (Score: {score:.2f})")
+    print()
 ```
 
-## Evaluation
+## Advanced Usage: Enhanced Modular Design
+
+Tiny ER's modular design allows for easy customization and extension. Here's an example of how to create and use enhanced components:
 
 ```python
-from tiny_er.evaluation.metrics import evaluate
-from tiny_er.evaluation.cross_validation import k_fold_cross_validation
-from tiny_er.core.data_structures import MatchResult, Entity
+from tiny_er import Entity, Preprocessor, ModelBuilder, Matcher, SimpleBlocker
+from tiny_er.core.resolver import EntityResolver
+import re
 
-# Using entities and resolver from the previous example
+class EnhancedPreprocessor(Preprocessor):
+    def preprocess(self, entity: Entity) -> Entity:
+        processed_attributes = {}
+        for key, value in entity.attributes.items():
+            if isinstance(value, str):
+                value = re.sub(r'[^\w\s]', '', value.lower())
+                value = ' '.join(value.split())
+                if key == 'name':
+                    value = self._normalize_name(value)
+            processed_attributes[key] = value
+        return Entity(entity.id, processed_attributes)
 
-# Create true matches (ground truth)
-true_matches = [
-    ('1', '3'),  # John Doe and J. Doe are the same person
-    ('2', '4')   # Jane Doe and Jane Smith are the same person
-]
+    def _normalize_name(self, name):
+        nickname_map = {'bob': 'robert', 'rob': 'robert', 'jim': 'james', 'john': 'jonathan', 'jon': 'jonathan'}
+        parts = name.split()
+        if parts[0] in nickname_map:
+            parts[0] = nickname_map[parts[0]]
+        return ' '.join(parts)
 
-# Perform entity resolution
-resolved_entities = resolver.resolve(entities)
+class EnhancedModelBuilder(ModelBuilder):
+    def __init__(self, attributes: List[str], weights: Dict[str, float] = None):
+        self.attributes = attributes
+        self.weights = weights or {attr: 1.0 for attr in attributes}
 
-# Create predicted matches from resolved entities
-def create_match_results(resolved_entities):
-    predicted_matches = []
-    for resolved_entity in resolved_entities:
-        original_ids = resolved_entity.original_ids
-        for i in range(len(original_ids)):
-            for j in range(i + 1, len(original_ids)):
-                predicted_matches.append(
-                    MatchResult(
-                        entity1=Entity(id=original_ids[i], attributes={}),
-                        entity2=Entity(id=original_ids[j], attributes={}),
-                        confidence=1.0,
-                        is_match=True
-                    )
-                )
-    return predicted_matches
-
-predicted_matches = create_match_results(resolved_entities)
-
-# Basic evaluation
-metrics = evaluate(true_matches, predicted_matches, config={'metrics': ['precision', 'recall', 'f1_score']})
-
-print("Evaluation Metrics:")
-for metric, value in metrics.items():
-    print(f"{metric}: {value:.2f}")
-
-# Cross-validation
-def resolver_function(entities):
-    resolved_entities = resolver.resolve(entities)
-    return create_match_results(resolved_entities)
-
-cv_results = k_fold_cross_validation(entities, resolver_function, true_matches, k=5)
-
-print("\nCross-validation Results:")
-for metric, value in cv_results.items():
-    print(f"{metric}: {value:.2f}")
-```
-
-## Customize
-
-Extend base classes to create custom components:
-
-```python
-from tiny_er.core.entity_resolver import EntityResolver
-from tiny_er.core.config import get_config
-from tiny_er.core.data_structures import Entity, Block, MatchResult, Comparison
-from tiny_er.core.base_classes import Blocker, Matcher
-from tiny_er.preprocessing.normalizer import create_normalizer
-from tiny_er.similarity.vector_similarity import create_vector_similarity_measure
-
-class ImprovedProfessionBlocker(Blocker):
-    def __init__(self, profession_field):
-        self.profession_field = profession_field
-
-    def block(self, entities):
-        blocks = {
-            'tech': Block('tech'),
-            'data': Block('data'),
-            'other': Block('other')
-        }
+    def train(self, entities: List[Entity]) -> Any:
+        model = {'entities': {}, 'index': {}}
         for entity in entities:
-            profession = entity.attributes.get(self.profession_field, '').lower()
-            if 'engineer' in profession or 'developer' in profession:
-                blocks['tech'].add(entity)
-            elif 'scientist' in profession or 'analyst' in profession:
-                blocks['data'].add(entity)
-            else:
-                blocks['other'].add(entity)
-        return list(blocks.values())
+            model['entities'][entity.id] = entity
+            for attr in self.attributes:
+                value = entity.attributes.get(attr, '').lower()
+                if value:
+                    if attr not in model['index']:
+                        model['index'][attr] = {}
+                    for token in value.split():
+                        if token not in model['index'][attr]:
+                            model['index'][attr][token] = set()
+                        model['index'][attr][token].add(entity.id)
+        return model
 
-class ThresholdMatcher(Matcher):
-    def __init__(self, threshold):
+    def update(self, model: Any, new_entities: List[Entity]) -> Any:
+        # Similar to train, but updates existing model
+        ...
+
+class EnhancedJaccardMatcher(Matcher):
+    def __init__(self, threshold: float = 0.3, weights: Dict[str, float] = None):
         self.threshold = threshold
+        self.weights = weights or {}
 
-    def match(self, comparisons):
-        return [MatchResult(comparison.entity1, comparison.entity2, comparison.similarity, comparison.similarity >= self.threshold)
-                for comparison in comparisons]
+    def match(self, entity: Entity, model: Dict) -> List[Tuple[Entity, float]]:
+        candidate_ids = set()
+        for attr in model['index']:
+            value = entity.attributes.get(attr, '').lower()
+            for token in value.split():
+                if token in model['index'][attr]:
+                    candidate_ids.update(model['index'][attr][token])
 
-# Sample data
-entities = [
-    Entity("1", {"name": "John Doe", "email": "john@example.com", "profession": "Software Engineer", "bio": "Experienced software developer with 5 years in the field"}),
-    Entity("2", {"name": "Jane Doe", "email": "jane@example.com", "profession": "Data Scientist", "bio": "Data scientist specializing in machine learning and AI"}),
-    Entity("3", {"name": "J. Doe", "email": "jdoe@example.com", "profession": "Software Developer", "bio": "Full-stack developer with expertise in web technologies"}),
-    Entity("4", {"name": "Jane Smith", "email": "janes@example.com", "profession": "Data Analyst", "bio": "Data analyst with strong statistical background"}),
-    Entity("5", {"name": "John Smith", "email": "johns@example.com", "profession": "Project Manager", "bio": "IT project manager with 10 years of experience"})
-]
+        matches = []
+        for candidate_id in candidate_ids:
+            if candidate_id != entity.id:
+                candidate = model['entities'][candidate_id]
+                similarity = self._calculate_weighted_similarity(entity, candidate)
+                if similarity >= self.threshold:
+                    matches.append((candidate, similarity))
 
-# Configuration
-config = get_config()
-config['preprocessing'] = {'lowercase': True, 'remove_punctuation': True, 'remove_whitespace': True}
-config['similarity'] = {
-    'method': 'cosine',
-    'fields': ['name', 'profession', 'bio'],
-    'threshold': 0.3
-}
-config['matching'] = {'threshold': 0.3}
-config['evaluation'] = {'metrics': ['precision', 'recall', 'f1_score']}
+        return sorted(matches, key=lambda x: x[1], reverse=True)
 
-# Create components
-preprocessor = create_normalizer(config['preprocessing'])
-blocker = ImprovedProfessionBlocker(profession_field='profession')
-similarity_measure = create_vector_similarity_measure(config['similarity'])
-matcher = ThresholdMatcher(config['matching']['threshold'])
+    def _calculate_weighted_similarity(self, entity1: Entity, entity2: Entity) -> float:
+        # Implement weighted Jaccard similarity
+        ...
 
-# Create EntityResolver
-resolver = EntityResolver(
-    preprocessor=preprocessor,
-    blocker=blocker,
-    similarity_measure=similarity_measure,
-    matcher=matcher
-)
+# Usage of enhanced components
+weights = {'name': 2.0, 'email': 1.5, 'phone': 1.0}
+preprocessor = EnhancedPreprocessor()
+model_builder = EnhancedModelBuilder(['name', 'email', 'phone'], weights)
+matcher = EnhancedJaccardMatcher(threshold=0.4, weights=weights)
+blocker = SimpleBlocker(lambda e: e.attributes['name'][0].lower())
 
-# Resolve entities
-resolved_entities = resolver.resolve(entities)
+resolver = EntityResolver(preprocessor, model_builder, matcher, blocker)
 
-print("Resolved Entities:")
-for entity in resolved_entities:
-    print(f"Resolved ID: {entity.id}")
-    print(f"Original IDs: {entity.original_ids}")
-    print(f"Attributes: {entity.attributes}")
-    print("---")
-
-# Evaluate results
-from tiny_er.evaluation.metrics import evaluate
-
-true_matches = [
-    ('1', '3'),  # John Doe and J. Doe are both software developers
-    ('2', '4')   # Jane Doe and Jane Smith are both in data-related professions
-]
-
-predicted_matches = create_match_results(resolved_entities)
-metrics = evaluate(true_matches, predicted_matches, config['evaluation'])
-
-print("\nEvaluation Metrics:")
-for metric, value in metrics.items():
-    print(f"{metric}: {value:.2f}")
+# Use resolver as in the basic example
+...
 ```
 
-## Why tiny_er?
+## Key Components
 
-- **Learning**: Understand ER without the complexity of large libraries
-- **Prototyping**: Quickly implement and test ER ideas
-- **Embedding**: Easily integrate into larger projects
-- **Customization**: Modify the core logic to fit specific needs
+1. **Preprocessor**: Cleans and standardizes entity attributes.
+2. **ModelBuilder**: Creates and updates the matching model.
+3. **Matcher**: Computes similarity between entities and finds matches.
+4. **Blocker**: Groups similar entities to reduce comparison space.
+
+Each component has a base abstract class that can be extended to create custom implementations.
+
+## Customization
+
+You can easily extend Tiny ER by creating custom implementations of its components:
+
+1. Subclass the base component classes (`Preprocessor`, `ModelBuilder`, `Matcher`, `Blocker`).
+2. Implement the required methods with your custom logic.
+3. Use your custom components when creating the `EntityResolver`.
+
+## Contributing
+
+Contributions to Tiny ER are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the LICENSE file for details.
