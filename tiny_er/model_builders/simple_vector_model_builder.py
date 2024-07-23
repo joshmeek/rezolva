@@ -1,7 +1,9 @@
-from ..core.base import ModelBuilder, Entity
-from typing import List, Any, Dict
-from collections import Counter
 import math
+from collections import Counter
+from typing import Any, Dict, List
+
+from ..core.base import Entity, ModelBuilder
+
 
 class SimpleVectorModelBuilder(ModelBuilder):
     def __init__(self, attributes: List[str]):

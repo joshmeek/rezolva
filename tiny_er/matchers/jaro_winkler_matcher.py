@@ -1,5 +1,6 @@
 from .base_matcher import BaseAttributeMatcher
 
+
 class JaroWinklerMatcher(BaseAttributeMatcher):
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
         return self._jaro_winkler_similarity(val1, val2)

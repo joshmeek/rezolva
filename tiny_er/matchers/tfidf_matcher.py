@@ -1,8 +1,10 @@
 
-from .base_matcher import BaseAttributeMatcher
-from ..core.base import Entity
-from typing import List, Dict
 import math
+from typing import Dict, List
+
+from ..core.base import Entity
+from .base_matcher import BaseAttributeMatcher
+
 
 class TfIdfMatcher(BaseAttributeMatcher):
     def __init__(self, threshold: float = 0.3, attribute_weights: Dict[str, float] = None):

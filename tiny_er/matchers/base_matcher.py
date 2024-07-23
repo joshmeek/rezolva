@@ -1,5 +1,7 @@
-from ..core.base import Matcher, Entity
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
+
+from ..core.base import Entity, Matcher
+
 
 class BaseAttributeMatcher(Matcher):
     def __init__(self, threshold: float = 0.7, attribute_weights: Dict[str, float] = None):

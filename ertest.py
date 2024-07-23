@@ -1,6 +1,9 @@
-from tiny_er import EntityResolver, Entity, SimplePreprocessor, SimpleModelBuilder, SimpleBlocker
+from tiny_er import (Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder,
+                     SimplePreprocessor)
 from tiny_er.matchers import CosineSimilarityMatcher
-from tiny_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
+from tiny_er.preprocessors.preprocessing_functions import (lowercase,
+                                                           remove_punctuation,
+                                                           strip_whitespace)
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

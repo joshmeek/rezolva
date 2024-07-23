@@ -1,6 +1,8 @@
 import unittest
-from tiny_er.matchers.base_matcher import BaseAttributeMatcher
+
 from tiny_er.core.base import Entity
+from tiny_er.matchers.base_matcher import BaseAttributeMatcher
+
 
 class DummyMatcher(BaseAttributeMatcher):
     def _calculate_attribute_similarity(self, val1, val2):

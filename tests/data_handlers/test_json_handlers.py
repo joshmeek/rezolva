@@ -1,8 +1,10 @@
-import unittest
 import json
 import os
-from tiny_er.data_handlers.json_handlers import JSONDataLoader, JSONDataSaver
+import unittest
+
 from tiny_er.core.base import Entity
+from tiny_er.data_handlers.json_handlers import JSONDataLoader, JSONDataSaver
+
 
 class TestJSONHandlers(unittest.TestCase):
     def setUp(self):

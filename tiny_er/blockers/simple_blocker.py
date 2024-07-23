@@ -1,5 +1,7 @@
+from typing import Callable, Dict, List
+
 from ..core.base import Blocker, Entity
-from typing import Dict, List, Callable
+
 
 class SimpleBlocker(Blocker):
     def __init__(self, blocking_key: Callable[[Entity], str]):

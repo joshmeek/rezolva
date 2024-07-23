@@ -1,6 +1,8 @@
 import unittest
-from tiny_er.matchers.levenshtein_matcher import LevenshteinMatcher
+
 from tiny_er.core.base import Entity
+from tiny_er.matchers.levenshtein_matcher import LevenshteinMatcher
+
 
 class TestLevenshteinMatcher(unittest.TestCase):
     def setUp(self):

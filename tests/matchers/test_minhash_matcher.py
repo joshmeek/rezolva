@@ -1,6 +1,8 @@
 import unittest
-from tiny_er.matchers.minhash_matcher import MinHashMatcher
+
 from tiny_er.core.base import Entity
+from tiny_er.matchers.minhash_matcher import MinHashMatcher
+
 
 class TestMinHashMatcher(unittest.TestCase):
     def setUp(self):

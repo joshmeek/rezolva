@@ -1,5 +1,6 @@
 from .base_matcher import BaseAttributeMatcher
 
+
 class LevenshteinMatcher(BaseAttributeMatcher):
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
         distance = self._levenshtein_distance(val1, val2)

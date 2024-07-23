@@ -1,7 +1,9 @@
-from .base_matcher import BaseAttributeMatcher
-from ..core.base import Entity
 import math
-from typing import Union, List, Dict, Tuple
+from typing import Dict, List, Tuple, Union
+
+from ..core.base import Entity
+from .base_matcher import BaseAttributeMatcher
+
 
 class CosineSimilarityMatcher(BaseAttributeMatcher):
     def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):

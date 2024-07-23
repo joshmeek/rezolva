@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Tuple
+from typing import Any, Dict, List, Tuple
+
 
 class Entity:
     def __init__(self, id: str, attributes: Dict[str, Any]):

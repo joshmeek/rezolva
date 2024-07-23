@@ -1,6 +1,8 @@
-from ..core.base import Matcher, Entity
-from typing import List, Tuple, Dict
 import hashlib
+from typing import Dict, List, Tuple
+
+from ..core.base import Entity, Matcher
+
 
 class MinHashMatcher(Matcher):
     def __init__(self, threshold: float = 0.5, num_hash_functions: int = 100, attribute_weights: Dict[str, float] = None):

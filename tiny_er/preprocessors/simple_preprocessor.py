@@ -1,5 +1,7 @@
-from ..core.base import Preprocessor, Entity
-from typing import List, Callable, Any
+from typing import Any, Callable, List
+
+from ..core.base import Entity, Preprocessor
+
 
 class SimplePreprocessor(Preprocessor):
     def __init__(self, preprocessing_functions: List[Callable[[Any], Any]] = None):

@@ -1,12 +1,13 @@
 import unittest
-from tiny_er.preprocessors.preprocessing_functions import (
-    lowercase, uppercase, strip_whitespace, remove_punctuation,
-    remove_accents, replace_special_characters, truncate,
-    normalize_name, sort_name_parts, normalize_phone,
-    format_phone, parse_date, format_date, normalize_address,
-    normalize_email, extract_initials, remove_stopwords
-)
 from datetime import datetime
+
+from tiny_er.preprocessors.preprocessing_functions import (
+    extract_initials, format_date, format_phone, lowercase, normalize_address,
+    normalize_email, normalize_name, normalize_phone, parse_date,
+    remove_accents, remove_punctuation, remove_stopwords,
+    replace_special_characters, sort_name_parts, strip_whitespace, truncate,
+    uppercase)
+
 
 class TestPreprocessingFunctions(unittest.TestCase):
     def test_lowercase(self):

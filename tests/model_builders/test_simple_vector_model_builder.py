@@ -1,7 +1,10 @@
-import unittest
 import math
-from tiny_er.model_builders.simple_vector_model_builder import SimpleVectorModelBuilder
+import unittest
+
 from tiny_er.core.base import Entity
+from tiny_er.model_builders.simple_vector_model_builder import \
+    SimpleVectorModelBuilder
+
 
 class TestSimpleVectorModelBuilder(unittest.TestCase):
     def setUp(self):

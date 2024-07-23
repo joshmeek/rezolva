@@ -1,5 +1,7 @@
-from ..core.base import ModelBuilder, Entity
-from typing import List, Any, Dict
+from typing import Any, Dict, List
+
+from ..core.base import Entity, ModelBuilder
+
 
 class PhoneticModelBuilder(ModelBuilder):
     def __init__(self, attributes: List[str]):

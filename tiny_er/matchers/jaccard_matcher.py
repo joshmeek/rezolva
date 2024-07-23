@@ -1,6 +1,7 @@
 
 from .base_matcher import BaseAttributeMatcher
 
+
 class JaccardMatcher(BaseAttributeMatcher):
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
         set1 = set(val1.lower().split())

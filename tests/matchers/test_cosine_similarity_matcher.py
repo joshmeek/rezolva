@@ -1,7 +1,9 @@
-import unittest
 import math
-from tiny_er.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
+import unittest
+
 from tiny_er.core.base import Entity
+from tiny_er.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
+
 
 class TestCosineSimilarityMatcher(unittest.TestCase):
     def setUp(self):

@@ -1,7 +1,9 @@
-import unittest
 import math
-from tiny_er.matchers.tfidf_matcher import TfIdfMatcher
+import unittest
+
 from tiny_er.core.base import Entity
+from tiny_er.matchers.tfidf_matcher import TfIdfMatcher
+
 
 class TestTfIdfMatcher(unittest.TestCase):
     def setUp(self):

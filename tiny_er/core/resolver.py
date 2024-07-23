@@ -1,5 +1,8 @@
-from ..core.base import Entity, Preprocessor, ModelBuilder, Matcher, Blocker, DataLoader, DataSaver
-from typing import List, Tuple, Any
+from typing import Any, List, Tuple
+
+from ..core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
+                         ModelBuilder, Preprocessor)
+
 
 class EntityResolver:
     def __init__(self, preprocessor, model_builder, matcher, blocker):

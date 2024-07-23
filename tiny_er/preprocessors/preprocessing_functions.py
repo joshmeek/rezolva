@@ -1,8 +1,10 @@
 import re
-from typing import Any, Dict
-from ..core.base import Entity
 import unicodedata
 from datetime import datetime
+from typing import Any, Dict
+
+from ..core.base import Entity
+
 
 # Basic string operations
 def lowercase(value: Any) -> Any:

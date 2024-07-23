@@ -1,8 +1,10 @@
-import unittest
 import csv
 import os
-from tiny_er.data_handlers.csv_handlers import CSVDataLoader, CSVDataSaver
+import unittest
+
 from tiny_er.core.base import Entity
+from tiny_er.data_handlers.csv_handlers import CSVDataLoader, CSVDataSaver
+
 
 class TestCSVHandlers(unittest.TestCase):
     def setUp(self):

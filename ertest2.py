@@ -1,11 +1,15 @@
-from tiny_er import EntityResolver, Entity
-from tiny_er.preprocessors.simple_preprocessor import SimplePreprocessor
-from tiny_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
-from tiny_er.model_builders.simple_vector_model_builder import SimpleVectorModelBuilder
-from tiny_er.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
-from tiny_er.blockers.simple_blocker import SimpleBlocker
-from typing import List, Tuple, Dict
 import math
+from typing import Dict, List, Tuple
+
+from tiny_er import Entity, EntityResolver
+from tiny_er.blockers.simple_blocker import SimpleBlocker
+from tiny_er.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
+from tiny_er.model_builders.simple_vector_model_builder import \
+    SimpleVectorModelBuilder
+from tiny_er.preprocessors.preprocessing_functions import (lowercase,
+                                                           remove_punctuation,
+                                                           strip_whitespace)
+from tiny_er.preprocessors.simple_preprocessor import SimplePreprocessor
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

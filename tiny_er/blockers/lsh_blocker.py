@@ -1,6 +1,8 @@
-from ..core.base import Blocker, Entity
-from typing import Dict, List, Callable
 import hashlib
+from typing import Callable, Dict, List
+
+from ..core.base import Blocker, Entity
+
 
 class LSHBlocker(Blocker):
     def __init__(self, num_hash_functions: int, band_size: int, attribute: str):

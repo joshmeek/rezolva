@@ -1,6 +1,8 @@
 import csv
-from ..core.base import DataLoader, DataSaver, Entity
 from typing import List
+
+from ..core.base import DataLoader, DataSaver, Entity
+
 
 class CSVDataLoader(DataLoader):
     def load(self, source: str) -> List[Entity]:

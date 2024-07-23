@@ -1,6 +1,8 @@
 import unittest
-from tiny_er.preprocessors.simple_preprocessor import SimplePreprocessor
+
 from tiny_er.core.base import Entity
+from tiny_er.preprocessors.simple_preprocessor import SimplePreprocessor
+
 
 class TestSimplePreprocessor(unittest.TestCase):
     def test_preprocess(self):

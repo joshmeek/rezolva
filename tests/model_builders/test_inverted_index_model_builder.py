@@ -1,6 +1,9 @@
 import unittest
-from tiny_er.model_builders.inverted_index_model_builder import InvertedIndexModelBuilder
+
 from tiny_er.core.base import Entity
+from tiny_er.model_builders.inverted_index_model_builder import \
+    InvertedIndexModelBuilder
+
 
 class TestInvertedIndexModelBuilder(unittest.TestCase):
     def setUp(self):

@@ -1,5 +1,8 @@
 import unittest
-from tiny_er.core.base import Entity, Preprocessor, ModelBuilder, Matcher, Blocker, DataLoader, DataSaver
+
+from tiny_er.core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
+                               ModelBuilder, Preprocessor)
+
 
 class TestEntity(unittest.TestCase):
     def test_entity_creation(self):
