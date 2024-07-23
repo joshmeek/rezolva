@@ -1,6 +1,6 @@
 # Tiny ER
 
-**Minimalist entity resolution. No dependencies. Pure Python.**
+**Entity resolution for everyone. Minimal. No Dependencies.**
 
 Tiny ER is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects.
 
