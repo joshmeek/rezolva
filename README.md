@@ -6,10 +6,11 @@ _**start-er**_ is a lightweight, flexible, and extensible entity resolution libr
 
 ## Features
 
-- Zero dependencies: Built with Python standard library only
+- Zero dependencies: built with Python standard library only
 - Modular architecture: Easy to customize and extend
-- Defaults: Out-of-the-box implementations of ER algorithms
-- Flexible: Adaptable to various ER scenarios
+- Defaults: out-of-the-box implementations of ER algorithms
+- Flexible: adaptable to various ER scenarios
+- Evaluation: utilities for testing precision, recall, F1, accuracy
 
 ## Installation
 
