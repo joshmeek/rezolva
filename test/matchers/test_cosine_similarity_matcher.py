@@ -54,7 +54,7 @@ class TestCosineSimilarityMatcher(unittest.TestCase):
         vec1 = {"a": 1, "b": 2, "c": 3}
         vec2 = {"b": 2, "c": 3, "d": 4}
         similarity = self.matcher._cosine_similarity_vectors(vec1, vec2)
-        expected_similarity = 0.9428090415820634
+        expected_similarity = 0.6451791670811048
         self.assertAlmostEqual(similarity, expected_similarity, places=6)
 
 if __name__ == '__main__':

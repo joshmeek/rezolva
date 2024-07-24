@@ -14,7 +14,7 @@ class TestEvaluationUtils(unittest.TestCase):
         # Test with some sample values
         precision, recall, f1 = calculate_precision_recall_f1(true_positives=8, false_positives=2, false_negatives=1)
         self.assertAlmostEqual(precision, 0.8, places=2)
-        self.assertAlmostEqual(recall, 0.8888, places=4)
+        self.assertAlmostEqual(recall, 0.8888888888888888, places=4)
         self.assertAlmostEqual(f1, 0.8421, places=4)
 
         # Test with zero values
@@ -68,10 +68,10 @@ class TestEvaluationUtils(unittest.TestCase):
 
         report = generate_performance_report(metrics)
 
-        self.assertIn("Precision: 0.8000", report)
-        self.assertIn("Recall: 0.7500", report)
-        self.assertIn("F1 Score: 0.7741", report)
-        self.assertIn("Accuracy: 0.9000", report)
+        self.assertIn("Precision: 0.800", report)
+        self.assertIn("Recall: 0.750", report)
+        self.assertIn("F1 Score: 0.774", report)
+        self.assertIn("Accuracy: 0.900", report)
 
     @patch('start_er.EntityResolver')
     @patch('start_er.utils.evaluation.evaluate_resolver')

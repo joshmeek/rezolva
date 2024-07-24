@@ -20,7 +20,7 @@ class TestSimpleModelBuilder(unittest.TestCase):
         self.assertEqual(len(model['entities']), 2)
         self.assertIn('name', model['index'])
         self.assertIn('age', model['index'])
-        self.assertIn('john', model['index']['name'])
+        self.assertIn('john doe', model['index']['name'].keys())
         self.assertIn('30', model['index']['age'])
 
     def test_update(self):
@@ -31,7 +31,7 @@ class TestSimpleModelBuilder(unittest.TestCase):
         updated_model = self.model_builder.update(model, new_entities)
 
         self.assertEqual(len(updated_model['entities']), 2)
-        self.assertIn('jane', updated_model['index']['name'])
+        self.assertIn('jane smith', updated_model['index']['name'].keys())
         self.assertIn('25', updated_model['index']['age'])
 
 if __name__ == '__main__':

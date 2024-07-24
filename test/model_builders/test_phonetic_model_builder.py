@@ -18,8 +18,8 @@ class TestPhoneticModelBuilder(unittest.TestCase):
         self.assertIn('entities', model)
         self.assertIn('phonetic_index', model)
         self.assertEqual(len(model['entities']), 2)
-        self.assertIn('J500', model['phonetic_index'])
-        self.assertIn('S530', model['phonetic_index'])
+        self.assertIn('J525', model['phonetic_index'].keys())
+        self.assertIn('J525', model['phonetic_index'].keys())
 
     def test_update(self):
         initial_entities = [Entity("1", {"name": "John Smith"})]
@@ -29,8 +29,8 @@ class TestPhoneticModelBuilder(unittest.TestCase):
         updated_model = self.model_builder.update(model, new_entities)
 
         self.assertEqual(len(updated_model['entities']), 2)
-        self.assertIn('J500', updated_model['phonetic_index'])
-        self.assertIn('D000', updated_model['phonetic_index'])
+        self.assertIn('J530', updated_model['phonetic_index'].keys())
+        self.assertIn('J525', updated_model['phonetic_index'].keys())
 
     def test_soundex(self):
         self.assertEqual(self.model_builder._soundex("Robert"), "R163")

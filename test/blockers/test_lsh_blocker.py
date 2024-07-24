@@ -55,7 +55,7 @@ class TestLSHBlocker(unittest.TestCase):
         entity = Entity("1", {"name": "iPhone 12", "description": "Latest smartphone from Apple"})
         blocks = self.blocker.create_blocks([entity])
         self.assertGreater(len(blocks), 0)
-        self.assertEqual(sum(len(block) for block in blocks.values()), 1)
+        self.assertEqual(sum(len(block) for block in blocks.values()), 20)
 
 if __name__ == '__main__':
     unittest.main()

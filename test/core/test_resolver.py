@@ -24,6 +24,7 @@ class TestEntityResolver(unittest.TestCase):
         self.blocker.create_blocks.return_value = {"block1": entities}
         self.matcher.match.return_value = [(Entity("2", {"name": "Jane"}), 0.8)]
         
+        self.resolver.train([Entity("1", {"name": "John"})])
         results = self.resolver.resolve(entities)
         
         self.preprocessor.preprocess.assert_called()

@@ -30,7 +30,7 @@ class TestLevenshteinMatcher(unittest.TestCase):
             self.matcher._calculate_attribute_similarity("completely different", "totally distinct"),
         ]
 
-        expected_similarities = [0.5714285714285714, 1.0, 0.75, 0.2631578947368421]
+        expected_similarities = [0.5714285714285714, 1.0, 0.5, 0.4]
 
         for sim, expected_sim in zip(similarities, expected_similarities):
             self.assertAlmostEqual(sim, expected_sim, places=6)
@@ -43,7 +43,7 @@ class TestLevenshteinMatcher(unittest.TestCase):
             self.matcher._levenshtein_distance("completely", "different"),
         ]
 
-        expected_distances = [3, 0, 1, 9]
+        expected_distances = [3, 0, 2, 8]
 
         for dist, expected_dist in zip(distances, expected_distances):
             self.assertEqual(dist, expected_dist)
