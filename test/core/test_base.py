@@ -1,6 +1,7 @@
 import unittest
 
-from start_er.core.base import Blocker, DataLoader, DataSaver, Entity, Matcher, ModelBuilder, Preprocessor
+from start_er.core.base import (Blocker, DataLoader, DataSaver, Entity,
+                                Matcher, ModelBuilder, Preprocessor)
 
 
 class TestEntity(unittest.TestCase):

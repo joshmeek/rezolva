@@ -3,7 +3,8 @@ import pickle
 import unittest
 
 from start_er.core.base import Entity
-from start_er.data_handlers.pickle_handlers import PickleDataLoader, PickleDataSaver
+from start_er.data_handlers.pickle_handlers import (PickleDataLoader,
+                                                    PickleDataSaver)
 
 
 class TestPickleHandlers(unittest.TestCase):

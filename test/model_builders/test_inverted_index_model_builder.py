@@ -1,7 +1,8 @@
 import unittest
 
 from start_er.core.base import Entity
-from start_er.model_builders.inverted_index_model_builder import InvertedIndexModelBuilder
+from start_er.model_builders.inverted_index_model_builder import \
+    InvertedIndexModelBuilder
 
 
 class TestInvertedIndexModelBuilder(unittest.TestCase):

@@ -2,7 +2,9 @@ from start_er import Entity, EntityResolver, SimplePreprocessor
 from start_er.blockers import LSHBlocker
 from start_er.matchers import BayesianMatcher
 from start_er.model_builders import SimpleModelBuilder
-from start_er.preprocessors.preprocessing_functions import lowercase, remove_punctuation, strip_whitespace
+from start_er.preprocessors.preprocessing_functions import (lowercase,
+                                                            remove_punctuation,
+                                                            strip_whitespace)
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

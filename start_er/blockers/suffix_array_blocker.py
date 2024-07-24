@@ -1,5 +1,6 @@
-from typing import List, Dict, Callable
 from collections import defaultdict
+from typing import Callable, Dict, List
+
 from ..core.base import Blocker, Entity
 
 

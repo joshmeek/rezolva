@@ -1,6 +1,7 @@
 import unittest
 
-from start_er.blockers.sorted_neighborhood_blocker import SortedNeighborhoodBlocker, default_key_func
+from start_er.blockers.sorted_neighborhood_blocker import (
+    SortedNeighborhoodBlocker, default_key_func)
 from start_er.core.base import Entity
 
 

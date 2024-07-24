@@ -1,8 +1,8 @@
 import csv
 import re
-from typing import List, Dict, Any
 from collections import Counter
 from datetime import datetime
+from typing import Any, Dict, List
 
 from start_er import Entity, EntityResolver
 from start_er.blockers import SortedNeighborhoodBlocker

@@ -1,5 +1,7 @@
 import unittest
-from start_er.blockers.suffix_array_blocker import SuffixArrayBlocker, default_key_func
+
+from start_er.blockers.suffix_array_blocker import (SuffixArrayBlocker,
+                                                    default_key_func)
 from start_er.core.base import Entity
 
 

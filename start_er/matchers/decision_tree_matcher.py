@@ -1,6 +1,7 @@
 import random
-from typing import List, Tuple, Dict
-from ..core.base import Matcher, Entity
+from typing import Dict, List, Tuple
+
+from ..core.base import Entity, Matcher
 
 
 class DecisionTreeNode:

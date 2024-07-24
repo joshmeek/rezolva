@@ -2,7 +2,8 @@ import math
 import unittest
 
 from start_er.core.base import Entity
-from start_er.model_builders.simple_vector_model_builder import SimpleVectorModelBuilder
+from start_er.model_builders.simple_vector_model_builder import \
+    SimpleVectorModelBuilder
 
 
 class TestSimpleVectorModelBuilder(unittest.TestCase):

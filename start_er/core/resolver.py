@@ -1,6 +1,7 @@
 from typing import Any, List, Tuple
 
-from ..core.base import Blocker, DataLoader, DataSaver, Entity, Matcher, ModelBuilder, Preprocessor
+from ..core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
+                         ModelBuilder, Preprocessor)
 
 
 class EntityResolver:
