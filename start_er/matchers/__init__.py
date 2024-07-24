@@ -5,3 +5,4 @@ from .jaro_winkler_matcher import JaroWinklerMatcher
 from .levenshtein_matcher import LevenshteinMatcher
 from .minhash_matcher import MinHashMatcher
 from .tfidf_matcher import TfIdfMatcher
+from .decision_tree_matcher import DecisionTreeMatcher

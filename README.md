@@ -61,7 +61,7 @@ for entity, matches in results:
 
 ## Advanced Usage
 
-For more advanced examples, including custom preprocessing, different matching algorithms, and model saving/loading, please check the [`examples`](https://github.com/joshmeek/start-er/tree/main/examples) directory in the repository.
+For more advanced examples, including custom preprocessing, different matching algorithms, model saving/loading, deduplication, and more, please check the [`examples`](https://github.com/joshmeek/start-er/tree/main/examples) directory in the repository.
 
 ## Customization
 
