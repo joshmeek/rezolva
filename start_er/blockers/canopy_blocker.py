@@ -32,6 +32,7 @@ class CanopyBlocker(Blocker):
     :param t1: The loose distance threshold for creating canopies
     :param t2: The tight distance threshold for removing entities from consideration
     """
+
     def __init__(self, distance_func, t1: float, t2: float):
         self.distance_func = distance_func or euclidean_distance
         self.t1 = t1
@@ -57,6 +58,7 @@ class CanopyBlocker(Blocker):
             remaining -= to_remove
 
         return {i: canopy for i, canopy in enumerate(canopies)}
+
 
 def euclidean_distance(e1: Entity, e2: Entity) -> float:
     attrs = set(e1.attributes.keys()) & set(e2.attributes.keys())

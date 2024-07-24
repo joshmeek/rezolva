@@ -23,10 +23,10 @@ class TestEntityResolver(unittest.TestCase):
         entities = [Entity("1", {"name": "John"})]
         self.blocker.create_blocks.return_value = {"block1": entities}
         self.matcher.match.return_value = [(Entity("2", {"name": "Jane"}), 0.8)]
-        
+
         self.resolver.train([Entity("1", {"name": "John"})])
         results = self.resolver.resolve(entities)
-        
+
         self.preprocessor.preprocess.assert_called()
         self.blocker.create_blocks.assert_called_once()
         self.matcher.match.assert_called_once()
@@ -35,5 +35,6 @@ class TestEntityResolver(unittest.TestCase):
         self.assertEqual(results[0][1][0][0].id, "2")
         self.assertEqual(results[0][1][0][1], 0.8)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

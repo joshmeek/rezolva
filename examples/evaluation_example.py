@@ -1,17 +1,18 @@
 import random
 from typing import List, Tuple
 
-from start_er import (Entity, EntityResolver, SimpleBlocker,
-                      SimpleModelBuilder, SimplePreprocessor)
+from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
 from start_er.core.base import Blocker, Matcher
 from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import (lowercase,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+from start_er.preprocessors.preprocessing_functions import lowercase, remove_punctuation, strip_whitespace
+
 # Import the evaluation utilities
-from start_er.utils.evaluation import (cross_validate, evaluate_resolver,
-                                       generate_performance_report,
-                                       print_cross_validation_report)
+from start_er.utils.evaluation import (
+    cross_validate,
+    evaluate_resolver,
+    generate_performance_report,
+    print_cross_validation_report,
+)
 
 
 # Custom components
@@ -25,13 +26,14 @@ class CustomBlocker(Blocker):
             blocks[key].append(entity)
         return blocks
 
+
 class CustomMatcher(Matcher):
     def __init__(self, threshold: float = 0.5):
         self.threshold = threshold
 
     def match(self, entity: Entity, model: dict) -> List[Tuple[Entity, float]]:
         matches = []
-        for candidate_id, candidate in model['entities'].items():
+        for candidate_id, candidate in model["entities"].items():
             if candidate_id != entity.id:
                 score = self._calculate_similarity(entity, candidate)
                 if score >= self.threshold:
@@ -39,8 +41,8 @@ class CustomMatcher(Matcher):
         return sorted(matches, key=lambda x: x[1], reverse=True)
 
     def _calculate_similarity(self, entity1: Entity, entity2: Entity) -> float:
-        title_sim = self._jaccard_similarity(entity1.attributes['title'], entity2.attributes['title'])
-        desc_sim = self._jaccard_similarity(entity1.attributes['description'], entity2.attributes['description'])
+        title_sim = self._jaccard_similarity(entity1.attributes["title"], entity2.attributes["title"])
+        desc_sim = self._jaccard_similarity(entity1.attributes["description"], entity2.attributes["description"])
         return (title_sim * 0.6) + (desc_sim * 0.4)
 
     def _jaccard_similarity(self, s1: str, s2: str) -> float:
@@ -49,6 +51,7 @@ class CustomMatcher(Matcher):
         intersection = len(set1.intersection(set2))
         union = len(set1.union(set2))
         return intersection / union if union > 0 else 0
+
 
 # Generate sample data
 def generate_sample_data(n: int = 100) -> Tuple[List[Entity], dict]:
@@ -62,42 +65,45 @@ def generate_sample_data(n: int = 100) -> Tuple[List[Entity], dict]:
         category = random.choice(categories)
         title = f"{brand} {category} {random.randint(1, 10)}"
         description = f"A {category.lower()} made by {brand}"
-        entity = Entity(str(i), {
-            "title": title,
-            "description": description,
-            "brand": brand,
-            "category": category
-        })
+        entity = Entity(str(i), {"title": title, "description": description, "brand": brand, "category": category})
         entities.append(entity)
 
         # Generate some similar entities for ground truth
         if random.random() < 0.3:  # 30% chance of having a match
-            similar_entity = Entity(str(n + i), {
-                "title": f"{title} Pro",
-                "description": f"Premium {description.lower()}",
-                "brand": brand,
-                "category": category
-            })
+            similar_entity = Entity(
+                str(n + i),
+                {
+                    "title": f"{title} Pro",
+                    "description": f"Premium {description.lower()}",
+                    "brand": brand,
+                    "category": category,
+                },
+            )
             entities.append(similar_entity)
             ground_truth[str(i)] = [str(n + i)]
             ground_truth[str(n + i)] = [str(i)]
 
     return entities, ground_truth
 
+
 # Set up resolvers
 def setup_simple_resolver():
     preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])
-    model_builder = SimpleModelBuilder(['title', 'description', 'brand', 'category'])
-    matcher = CosineSimilarityMatcher(threshold=0.5, attribute_weights={'title': 2.0, 'description': 1.5, 'brand': 1.0, 'category': 0.5})
-    blocker = SimpleBlocker(lambda e: e.attributes['brand'].lower())
+    model_builder = SimpleModelBuilder(["title", "description", "brand", "category"])
+    matcher = CosineSimilarityMatcher(
+        threshold=0.5, attribute_weights={"title": 2.0, "description": 1.5, "brand": 1.0, "category": 0.5}
+    )
+    blocker = SimpleBlocker(lambda e: e.attributes["brand"].lower())
     return EntityResolver(preprocessor, model_builder, matcher, blocker)
+
 
 def setup_custom_resolver():
     preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])
-    model_builder = SimpleModelBuilder(['title', 'description', 'brand', 'category'])
+    model_builder = SimpleModelBuilder(["title", "description", "brand", "category"])
     matcher = CustomMatcher(threshold=0.3)
     blocker = CustomBlocker()
     return EntityResolver(preprocessor, model_builder, matcher, blocker)
+
 
 # Main execution
 if __name__ == "__main__":
@@ -141,5 +147,7 @@ if __name__ == "__main__":
         print(f"{metric.capitalize()}:")
         print(f"  Simple: {simple_value:.3f}")
         print(f"  Custom: {custom_value:.3f}")
-        print(f"  Difference: {difference:.3f} ({'better' if difference > 0 else 'same' if difference == 0 else 'worse'} for Custom)")
+        print(
+            f"  Difference: {difference:.3f} ({'better' if difference > 0 else 'same' if difference == 0 else 'worse'} for Custom)"
+        )
         print()

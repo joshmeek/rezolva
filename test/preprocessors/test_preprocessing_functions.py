@@ -2,11 +2,24 @@ import unittest
 from datetime import datetime
 
 from start_er.preprocessors.preprocessing_functions import (
-    extract_initials, format_date, format_phone, lowercase, normalize_address,
-    normalize_email, normalize_name, normalize_phone, parse_date,
-    remove_accents, remove_punctuation, remove_stopwords,
-    replace_special_characters, sort_name_parts, strip_whitespace, truncate,
-    uppercase)
+    extract_initials,
+    format_date,
+    format_phone,
+    lowercase,
+    normalize_address,
+    normalize_email,
+    normalize_name,
+    normalize_phone,
+    parse_date,
+    remove_accents,
+    remove_punctuation,
+    remove_stopwords,
+    replace_special_characters,
+    sort_name_parts,
+    strip_whitespace,
+    truncate,
+    uppercase,
+)
 
 
 class TestPreprocessingFunctions(unittest.TestCase):
@@ -82,5 +95,6 @@ class TestPreprocessingFunctions(unittest.TestCase):
         self.assertEqual(remove_stopwords("this is a test", stopwords), "this test")
         self.assertEqual(remove_stopwords(123, stopwords), 123)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

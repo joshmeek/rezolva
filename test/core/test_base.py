@@ -1,7 +1,6 @@
 import unittest
 
-from start_er.core.base import (Blocker, DataLoader, DataSaver, Entity,
-                                Matcher, ModelBuilder, Preprocessor)
+from start_er.core.base import Blocker, DataLoader, DataSaver, Entity, Matcher, ModelBuilder, Preprocessor
 
 
 class TestEntity(unittest.TestCase):
@@ -10,6 +9,7 @@ class TestEntity(unittest.TestCase):
         self.assertEqual(entity.id, "1")
         self.assertEqual(entity.attributes, {"name": "John", "age": 30})
 
+
 class TestAbstractClasses(unittest.TestCase):
     def test_abstract_methods(self):
         abstract_classes = [Preprocessor, ModelBuilder, Matcher, Blocker, DataLoader, DataSaver]
@@ -17,5 +17,6 @@ class TestAbstractClasses(unittest.TestCase):
             with self.assertRaises(TypeError):
                 cls()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

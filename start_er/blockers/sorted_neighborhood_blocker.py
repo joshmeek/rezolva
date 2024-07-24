@@ -28,6 +28,7 @@ class SortedNeighborhoodBlocker(Blocker):
     :param key_func: A function that takes an Entity and returns a sortable key
     :param window_size: The size of the sliding window
     """
+
     def __init__(self, key_func: Callable[[Entity], str], window_size: int):
         self.key_func = key_func or default_key_func
         self.window_size = window_size
@@ -41,7 +42,7 @@ class SortedNeighborhoodBlocker(Blocker):
             start = max(0, i - self.window_size // 2)
             end = min(len(sorted_entities), i + self.window_size // 2 + 1)
             window = sorted_entities[start:end]
-            
+
             key = self.key_func(sorted_entities[i])
             if key not in blocks:
                 blocks[key] = []
@@ -53,6 +54,7 @@ class SortedNeighborhoodBlocker(Blocker):
 
         return blocks
 
+
 def default_key_func(entity: Entity) -> str:
     # Example key function: concatenate first characters of each attribute
-    return ''.join(str(value)[0].lower() for value in entity.attributes.values())
+    return "".join(str(value)[0].lower() for value in entity.attributes.values())

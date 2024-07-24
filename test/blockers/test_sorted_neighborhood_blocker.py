@@ -1,7 +1,6 @@
 import unittest
 
-from start_er.blockers.sorted_neighborhood_blocker import (
-    SortedNeighborhoodBlocker, default_key_func)
+from start_er.blockers.sorted_neighborhood_blocker import SortedNeighborhoodBlocker, default_key_func
 from start_er.core.base import Entity
 
 
@@ -12,13 +11,13 @@ class TestSortedNeighborhoodBlocker(unittest.TestCase):
             Entity("2", {"name": "Jane Smith", "city": "Los Angeles"}),
             Entity("3", {"name": "Bob Johnson", "city": "Chicago"}),
             Entity("4", {"name": "Alice Brown", "city": "New York"}),
-            Entity("5", {"name": "Charlie Davis", "city": "Boston"})
+            Entity("5", {"name": "Charlie Davis", "city": "Boston"}),
         ]
         self.blocker = SortedNeighborhoodBlocker(default_key_func, window_size=3)
 
     def test_create_blocks(self):
         blocks = self.blocker.create_blocks(self.entities)
-        
+
         # Check if we have the expected number of blocks
         self.assertEqual(len(blocks), len(self.entities))
 
@@ -38,14 +37,15 @@ class TestSortedNeighborhoodBlocker(unittest.TestCase):
             self.assertLessEqual(len(block), self.blocker.window_size)
 
     def test_custom_key_func(self):
-        custom_key_func = lambda e: e.attributes['city'][0].lower()
+        custom_key_func = lambda e: e.attributes["city"][0].lower()
         custom_blocker = SortedNeighborhoodBlocker(custom_key_func, window_size=3)
         blocks = custom_blocker.create_blocks(self.entities)
 
         # Check if entities with the same city initial are in the same block
-        self.assertIn(self.entities[0], blocks['n'])  # New York
-        self.assertIn(self.entities[3], blocks['n'])  # New York
-        self.assertIn(self.entities[1], blocks['l'])  # Los Angeles
+        self.assertIn(self.entities[0], blocks["n"])  # New York
+        self.assertIn(self.entities[3], blocks["n"])  # New York
+        self.assertIn(self.entities[1], blocks["l"])  # Los Angeles
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

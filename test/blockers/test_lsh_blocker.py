@@ -6,7 +6,7 @@ from start_er.core.base import Entity
 
 class TestLSHBlocker(unittest.TestCase):
     def setUp(self):
-        self.blocker = LSHBlocker(num_hash_functions=100, band_size=5, attribute='description')
+        self.blocker = LSHBlocker(num_hash_functions=100, band_size=5, attribute="description")
 
     def test_create_blocks(self):
         entities = [
@@ -30,11 +30,11 @@ class TestLSHBlocker(unittest.TestCase):
 
         for block_key, block_entities in blocks.items():
             for entity in block_entities:
-                if "Apple" in entity.attributes['description']:
+                if "Apple" in entity.attributes["description"]:
                     apple_blocks.add(block_key)
-                if "Samsung" in entity.attributes['description']:
+                if "Samsung" in entity.attributes["description"]:
                     samsung_blocks.add(block_key)
-                if "laptop" in entity.attributes['description']:
+                if "laptop" in entity.attributes["description"]:
                     laptop_blocks.add(block_key)
 
         self.assertGreater(len(apple_blocks.intersection(samsung_blocks)), 0)
@@ -43,7 +43,7 @@ class TestLSHBlocker(unittest.TestCase):
     def test_minhash_signature(self):
         text = "This is a test sentence for MinHash"
         signature = self.blocker._minhash_signature(text)
-        
+
         self.assertEqual(len(signature), self.blocker.num_hash_functions)
         self.assertTrue(all(isinstance(x, int) for x in signature))
 
@@ -57,5 +57,6 @@ class TestLSHBlocker(unittest.TestCase):
         self.assertGreater(len(blocks), 0)
         self.assertEqual(sum(len(block) for block in blocks.values()), 20)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

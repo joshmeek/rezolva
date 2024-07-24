@@ -6,12 +6,12 @@ from start_er.matchers.jaro_winkler_matcher import JaroWinklerMatcher
 
 class TestJaroWinklerMatcher(unittest.TestCase):
     def setUp(self):
-        self.matcher = JaroWinklerMatcher(threshold=0.8, attribute_weights={'name': 1.0, 'description': 0.5})
+        self.matcher = JaroWinklerMatcher(threshold=0.8, attribute_weights={"name": 1.0, "description": 0.5})
 
     def test_match(self):
         entity = Entity("1", {"name": "Martha", "description": "Software Engineer"})
         model = {
-            'entities': {
+            "entities": {
                 "2": Entity("2", {"name": "Marhta", "description": "Software Developer"}),
                 "3": Entity("3", {"name": "John", "description": "Data Scientist"}),
             }
@@ -48,5 +48,6 @@ class TestJaroWinklerMatcher(unittest.TestCase):
         for dist, expected_dist in zip(distances, expected_distances):
             self.assertAlmostEqual(dist, expected_dist, places=6)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

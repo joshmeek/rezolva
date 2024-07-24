@@ -12,9 +12,11 @@ class Entity:
     :param id: A unique identifier for the entity
     :param attributes: A dictionary of attribute names and their corresponding values
     """
+
     def __init__(self, id: str, attributes: Dict[str, Any]):
         self.id = id
         self.attributes = attributes
+
 
 class Preprocessor(ABC):
     """
@@ -26,9 +28,11 @@ class Preprocessor(ABC):
 
     Subclasses should implement the `preprocess` method to define specific preprocessing logic.
     """
+
     @abstractmethod
     def preprocess(self, entity: Entity) -> Entity:
         pass
+
 
 class ModelBuilder(ABC):
     """
@@ -40,6 +44,7 @@ class ModelBuilder(ABC):
 
     Subclasses should implement the `train` and `update` methods to define specific model building logic.
     """
+
     @abstractmethod
     def train(self, entities: List[Entity]) -> Any:
         pass
@@ -47,6 +52,7 @@ class ModelBuilder(ABC):
     @abstractmethod
     def update(self, model: Any, new_entities: List[Entity]) -> Any:
         pass
+
 
 class Matcher(ABC):
     """
@@ -58,9 +64,11 @@ class Matcher(ABC):
 
     Subclasses should implement the `match` method to define specific matching logic.
     """
+
     @abstractmethod
     def match(self, entity: Entity, candidates: List[Entity]) -> List[Tuple[Entity, float]]:
         pass
+
 
 class Blocker(ABC):
     """
@@ -72,9 +80,11 @@ class Blocker(ABC):
 
     Subclasses should implement the `create_blocks` method to define specific blocking logic.
     """
+
     @abstractmethod
     def create_blocks(self, entities: List[Entity]) -> Dict[Any, List[Entity]]:
         pass
+
 
 class DataLoader(ABC):
     """
@@ -86,9 +96,11 @@ class DataLoader(ABC):
 
     Subclasses should implement the `load` method to define specific data loading logic.
     """
+
     @abstractmethod
     def load(self, source: Any) -> List[Entity]:
         pass
+
 
 class DataSaver(ABC):
     """
@@ -99,6 +111,7 @@ class DataSaver(ABC):
 
     Subclasses should implement the `save` method to define specific data saving logic.
     """
+
     @abstractmethod
     def save(self, entities: List[Entity], destination: Any):
         pass

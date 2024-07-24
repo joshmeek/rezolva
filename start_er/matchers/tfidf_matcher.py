@@ -1,4 +1,3 @@
-
 import math
 from typing import Dict, List
 
@@ -29,6 +28,7 @@ class TfIdfMatcher(BaseAttributeMatcher):
     :param threshold: The similarity threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
     """
+
     def __init__(self, threshold: float = 0.3, attribute_weights: Dict[str, float] = None):
         super().__init__(threshold, attribute_weights)
         self.idf = {}
@@ -40,7 +40,7 @@ class TfIdfMatcher(BaseAttributeMatcher):
         for entity in entities:
             words = set()
             for attr in self.attribute_weights.keys():
-                words.update(str(entity.attributes.get(attr, '')).lower().split())
+                words.update(str(entity.attributes.get(attr, "")).lower().split())
             for word in words:
                 word_doc_count[word] = word_doc_count.get(word, 0) + 1
         self.idf = {word: math.log(self.doc_count / count) for word, count in word_doc_count.items()}
@@ -63,8 +63,8 @@ class TfIdfMatcher(BaseAttributeMatcher):
     def _cosine_similarity(self, vec1: dict, vec2: dict) -> float:
         intersection = set(vec1.keys()) & set(vec2.keys())
         dot_product = sum(vec1[x] * vec2[x] for x in intersection)
-        magnitude1 = math.sqrt(sum(v ** 2 for v in vec1.values()))
-        magnitude2 = math.sqrt(sum(v ** 2 for v in vec2.values()))
+        magnitude1 = math.sqrt(sum(v**2 for v in vec1.values()))
+        magnitude2 = math.sqrt(sum(v**2 for v in vec2.values()))
         if magnitude1 * magnitude2 == 0:
             return 0
         return dot_product / (magnitude1 * magnitude2)

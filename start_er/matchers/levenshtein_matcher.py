@@ -26,6 +26,7 @@ class LevenshteinMatcher(BaseAttributeMatcher):
     :param threshold: The similarity threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
     """
+
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
         distance = self._levenshtein_distance(val1, val2)
         max_length = max(len(val1), len(val2))

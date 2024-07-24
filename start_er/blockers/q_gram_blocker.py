@@ -2,6 +2,7 @@ from typing import List, Dict, Callable
 from collections import defaultdict
 from ..core.base import Blocker, Entity
 
+
 class QGramBlocker(Blocker):
     """
     A blocking method that uses Q-grams to create blocks of entities.
@@ -27,6 +28,7 @@ class QGramBlocker(Blocker):
     :param key_func: A function that takes an Entity and returns the value to generate Q-grams from
     :param threshold: The minimum number of entities required to form a block
     """
+
     def __init__(self, q: int, key_func: Callable[[Entity], str], threshold: int):
         self.q = q
         self.key_func = key_func or default_key_func
@@ -49,9 +51,10 @@ class QGramBlocker(Blocker):
         return {k: list(v) for k, v in merged_blocks.items()}
 
     def _generate_q_grams(self, string: str) -> List[str]:
-        string = ' ' * (self.q - 1) + string + ' ' * (self.q - 1)
-        return [string[i:i+self.q] for i in range(len(string) - self.q + 1)]
+        string = " " * (self.q - 1) + string + " " * (self.q - 1)
+        return [string[i : i + self.q] for i in range(len(string) - self.q + 1)]
+
 
 def default_key_func(entity: Entity) -> str:
     # Example key function: concatenate all attribute values
-    return ' '.join(str(value) for value in entity.attributes.values())
+    return " ".join(str(value) for value in entity.attributes.values())

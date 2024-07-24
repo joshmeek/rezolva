@@ -32,6 +32,7 @@ class SimpleBlocker(Blocker):
 
     :param blocking_key: A function that takes an Entity and returns a blocking key
     """
+
     def __init__(self, blocking_key: Callable[[Entity], str]):
         self.blocking_key = blocking_key
 

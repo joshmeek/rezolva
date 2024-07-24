@@ -10,4 +10,4 @@ from .preprocessors.simple_preprocessor import SimplePreprocessor
 __version__ = "0.1.0"
 
 # List of public objects in this package
-__all__ = ['EntityResolver', 'Entity', 'SimplePreprocessor', 'SimpleModelBuilder', 'SimpleBlocker']
+__all__ = ["EntityResolver", "Entity", "SimplePreprocessor", "SimpleModelBuilder", "SimpleBlocker"]

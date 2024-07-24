@@ -6,12 +6,12 @@ from start_er.matchers.levenshtein_matcher import LevenshteinMatcher
 
 class TestLevenshteinMatcher(unittest.TestCase):
     def setUp(self):
-        self.matcher = LevenshteinMatcher(threshold=0.7, attribute_weights={'name': 1.0, 'description': 0.5})
+        self.matcher = LevenshteinMatcher(threshold=0.7, attribute_weights={"name": 1.0, "description": 0.5})
 
     def test_match(self):
         entity = Entity("1", {"name": "John Doe", "description": "Software Engineer"})
         model = {
-            'entities': {
+            "entities": {
                 "2": Entity("2", {"name": "Jon Doe", "description": "Software Developer"}),
                 "3": Entity("3", {"name": "Jane Smith", "description": "Data Scientist"}),
             }
@@ -48,5 +48,6 @@ class TestLevenshteinMatcher(unittest.TestCase):
         for dist, expected_dist in zip(distances, expected_distances):
             self.assertEqual(dist, expected_dist)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -25,6 +25,7 @@ class JaroWinklerMatcher(BaseAttributeMatcher):
     :param threshold: The similarity threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
     """
+
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
         return self._jaro_winkler_similarity(val1, val2)
 
@@ -72,6 +73,4 @@ class JaroWinklerMatcher(BaseAttributeMatcher):
             if s1[i] != s2[k]:
                 transpositions += 1
             k += 1
-        return ((matches / len(s1)) +
-                (matches / len(s2)) +
-                ((matches - transpositions / 2) / matches)) / 3.0
+        return ((matches / len(s1)) + (matches / len(s2)) + ((matches - transpositions / 2) / matches)) / 3.0

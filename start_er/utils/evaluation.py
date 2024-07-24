@@ -4,7 +4,9 @@ from typing import Dict, List, Tuple
 from start_er import Entity, EntityResolver
 
 
-def calculate_precision_recall_f1(true_positives: int, false_positives: int, false_negatives: int) -> Tuple[float, float, float]:
+def calculate_precision_recall_f1(
+    true_positives: int, false_positives: int, false_negatives: int
+) -> Tuple[float, float, float]:
     """
     Calculate precision, recall, and F1 score for entity resolution results.
 
@@ -22,6 +24,7 @@ def calculate_precision_recall_f1(true_positives: int, false_positives: int, fal
     f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
     return precision, recall, f1
 
+
 def calculate_accuracy(true_positives: int, true_negatives: int, total_comparisons: int) -> float:
     """
     Calculate accuracy for entity resolution results.
@@ -35,7 +38,10 @@ def calculate_accuracy(true_positives: int, true_negatives: int, total_compariso
     """
     return (true_positives + true_negatives) / total_comparisons if total_comparisons > 0 else 0
 
-def evaluate_resolver(resolver: EntityResolver, test_entities: List[Entity], ground_truth: Dict[str, List[str]], threshold: float = 0.5) -> Dict[str, float]:
+
+def evaluate_resolver(
+    resolver: EntityResolver, test_entities: List[Entity], ground_truth: Dict[str, List[str]], threshold: float = 0.5
+) -> Dict[str, float]:
     """
     Evaluate the performance of an EntityResolver using a set of test entities and ground truth data.
 
@@ -69,12 +75,8 @@ def evaluate_resolver(resolver: EntityResolver, test_entities: List[Entity], gro
     precision, recall, f1 = calculate_precision_recall_f1(true_positives, false_positives, false_negatives)
     accuracy = calculate_accuracy(true_positives, true_negatives, total_comparisons)
 
-    return {
-        "precision": precision,
-        "recall": recall,
-        "f1": f1,
-        "accuracy": accuracy
-    }
+    return {"precision": precision, "recall": recall, "f1": f1, "accuracy": accuracy}
+
 
 def generate_performance_report(metrics: Dict[str, float]) -> str:
     """
@@ -94,7 +96,10 @@ def generate_performance_report(metrics: Dict[str, float]) -> str:
     report += f"Accuracy: {metrics['accuracy']:.3f}\n"
     return report
 
-def cross_validate(resolver: EntityResolver, entities: List[Entity], ground_truth: Dict[str, List[str]], k: int = 5) -> Dict[str, List[float]]:
+
+def cross_validate(
+    resolver: EntityResolver, entities: List[Entity], ground_truth: Dict[str, List[str]], k: int = 5
+) -> Dict[str, List[float]]:
     """
     Perform k-fold cross-validation on an EntityResolver.
 
@@ -108,12 +113,7 @@ def cross_validate(resolver: EntityResolver, entities: List[Entity], ground_trut
     :return: A dictionary containing lists of evaluation metrics for each fold
     """
     fold_size = len(entities) // k
-    results = {
-        "precision": [],
-        "recall": [],
-        "f1": [],
-        "accuracy": []
-    }
+    results = {"precision": [], "recall": [], "f1": [], "accuracy": []}
 
     for i in range(k):
         start = i * fold_size
@@ -126,6 +126,7 @@ def cross_validate(resolver: EntityResolver, entities: List[Entity], ground_trut
             results[metric].append(value)
 
     return results
+
 
 def print_cross_validation_report(cv_results: Dict[str, List[float]]) -> None:
     """

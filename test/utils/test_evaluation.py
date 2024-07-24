@@ -2,14 +2,16 @@ import unittest
 from unittest.mock import Mock, patch
 
 from start_er import Entity, EntityResolver
-from start_er.utils.evaluation import (calculate_accuracy,
-                                       calculate_precision_recall_f1,
-                                       cross_validate, evaluate_resolver,
-                                       generate_performance_report)
+from start_er.utils.evaluation import (
+    calculate_accuracy,
+    calculate_precision_recall_f1,
+    cross_validate,
+    evaluate_resolver,
+    generate_performance_report,
+)
 
 
 class TestEvaluationUtils(unittest.TestCase):
-
     def test_calculate_precision_recall_f1(self):
         # Test with some sample values
         precision, recall, f1 = calculate_precision_recall_f1(true_positives=8, false_positives=2, false_negatives=1)
@@ -31,25 +33,21 @@ class TestEvaluationUtils(unittest.TestCase):
         accuracy = calculate_accuracy(true_positives=0, true_negatives=0, total_comparisons=0)
         self.assertEqual(accuracy, 0)
 
-    @patch('start_er.EntityResolver')
+    @patch("start_er.EntityResolver")
     def test_evaluate_resolver(self, mock_resolver):
         # Mock the resolver and its resolve method
         mock_resolver.resolve.return_value = [
             (Entity("1", {"name": "Entity 1"}), [(Entity("2", {"name": "Entity 2"}), 0.8)]),
-            (Entity("3", {"name": "Entity 3"}), [])
+            (Entity("3", {"name": "Entity 3"}), []),
         ]
 
         test_entities = [
             Entity("1", {"name": "Entity 1"}),
             Entity("2", {"name": "Entity 2"}),
-            Entity("3", {"name": "Entity 3"})
+            Entity("3", {"name": "Entity 3"}),
         ]
 
-        ground_truth = {
-            "1": ["2"],
-            "2": ["1"],
-            "3": []
-        }
+        ground_truth = {"1": ["2"], "2": ["1"], "3": []}
 
         metrics = evaluate_resolver(mock_resolver, test_entities, ground_truth)
 
@@ -59,12 +57,7 @@ class TestEvaluationUtils(unittest.TestCase):
         self.assertIn("accuracy", metrics)
 
     def test_generate_performance_report(self):
-        metrics = {
-            "precision": 0.8,
-            "recall": 0.75,
-            "f1": 0.7741,
-            "accuracy": 0.9
-        }
+        metrics = {"precision": 0.8, "recall": 0.75, "f1": 0.7741, "accuracy": 0.9}
 
         report = generate_performance_report(metrics)
 
@@ -73,16 +66,11 @@ class TestEvaluationUtils(unittest.TestCase):
         self.assertIn("F1 Score: 0.774", report)
         self.assertIn("Accuracy: 0.900", report)
 
-    @patch('start_er.EntityResolver')
-    @patch('start_er.utils.evaluation.evaluate_resolver')
+    @patch("start_er.EntityResolver")
+    @patch("start_er.utils.evaluation.evaluate_resolver")
     def test_cross_validate(self, mock_evaluate_resolver, mock_resolver):
         # Mock the evaluate_resolver function
-        mock_evaluate_resolver.return_value = {
-            "precision": 0.8,
-            "recall": 0.75,
-            "f1": 0.7741,
-            "accuracy": 0.9
-        }
+        mock_evaluate_resolver.return_value = {"precision": 0.8, "recall": 0.75, "f1": 0.7741, "accuracy": 0.9}
 
         entities = [Entity(str(i), {"name": f"Entity {i}"}) for i in range(10)]
         ground_truth = {str(i): [] for i in range(10)}
@@ -94,5 +82,6 @@ class TestEvaluationUtils(unittest.TestCase):
         self.assertEqual(len(results["f1"]), 5)
         self.assertEqual(len(results["accuracy"]), 5)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

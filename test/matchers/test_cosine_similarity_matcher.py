@@ -7,12 +7,12 @@ from start_er.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
 
 class TestCosineSimilarityMatcher(unittest.TestCase):
     def setUp(self):
-        self.matcher = CosineSimilarityMatcher(threshold=0.5, attribute_weights={'title': 1.0, 'description': 0.5})
+        self.matcher = CosineSimilarityMatcher(threshold=0.5, attribute_weights={"title": 1.0, "description": 0.5})
 
     def test_match_string_based(self):
         entity = Entity("1", {"title": "iPhone", "description": "Smartphone by Apple"})
         model = {
-            'entities': {
+            "entities": {
                 "2": Entity("2", {"title": "iPhone", "description": "Apple's smartphone"}),
                 "3": Entity("3", {"title": "Galaxy", "description": "Smartphone by Samsung"}),
             }
@@ -26,23 +26,23 @@ class TestCosineSimilarityMatcher(unittest.TestCase):
     def test_match_vector_based(self):
         entity = Entity("1", {"title": "iPhone", "description": "Smartphone by Apple"})
         model = {
-            'entities': {
+            "entities": {
                 "1": entity,
                 "2": Entity("2", {"title": "iPhone", "description": "Apple's smartphone"}),
                 "3": Entity("3", {"title": "Galaxy", "description": "Smartphone by Samsung"}),
             },
-            'vectors': {
+            "vectors": {
                 "1": {"iphone": 0.7, "smartphone": 0.5, "apple": 0.3},
                 "2": {"iphone": 0.7, "smartphone": 0.3, "apple": 0.5},
                 "3": {"galaxy": 0.7, "smartphone": 0.5, "samsung": 0.3},
             },
-            'idf': {
-                "iphone": math.log(3/2),
-                "smartphone": math.log(3/3),
-                "apple": math.log(3/2),
-                "galaxy": math.log(3/1),
-                "samsung": math.log(3/1),
-            }
+            "idf": {
+                "iphone": math.log(3 / 2),
+                "smartphone": math.log(3 / 3),
+                "apple": math.log(3 / 2),
+                "galaxy": math.log(3 / 1),
+                "samsung": math.log(3 / 1),
+            },
         }
 
         matches = self.matcher.match(entity, model)
@@ -57,5 +57,6 @@ class TestCosineSimilarityMatcher(unittest.TestCase):
         expected_similarity = 0.6451791670811048
         self.assertAlmostEqual(similarity, expected_similarity, places=6)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

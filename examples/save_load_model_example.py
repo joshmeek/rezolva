@@ -1,27 +1,27 @@
 import pickle
 
-from start_er import (Entity, EntityResolver, SimpleBlocker,
-                      SimpleModelBuilder, SimplePreprocessor)
+from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
 from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import (lowercase,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+from start_er.preprocessors.preprocessing_functions import lowercase, remove_punctuation, strip_whitespace
 
 
 def create_resolver():
     preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])
-    model_builder = SimpleModelBuilder(['title', 'description', 'brand'])
-    matcher = CosineSimilarityMatcher(threshold=0.5, attribute_weights={'title': 2.0, 'description': 1.5, 'brand': 1.0})
-    blocker = SimpleBlocker(lambda e: e.attributes['brand'].lower())
+    model_builder = SimpleModelBuilder(["title", "description", "brand"])
+    matcher = CosineSimilarityMatcher(threshold=0.5, attribute_weights={"title": 2.0, "description": 1.5, "brand": 1.0})
+    blocker = SimpleBlocker(lambda e: e.attributes["brand"].lower())
     return EntityResolver(preprocessor, model_builder, matcher, blocker)
 
+
 def save_model(resolver, filename):
-    with open(filename, 'wb') as f:
+    with open(filename, "wb") as f:
         pickle.dump(resolver.model, f)
 
+
 def load_model(resolver, filename):
-    with open(filename, 'rb') as f:
+    with open(filename, "rb") as f:
         resolver.model = pickle.load(f)
+
 
 # Create and train the resolver
 resolver = create_resolver()

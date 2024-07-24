@@ -19,7 +19,7 @@ class TestSimplePreprocessor(unittest.TestCase):
 
     def test_add_remove_preprocessing_function(self):
         preprocessor = SimplePreprocessor()
-        
+
         def dummy_func(value):
             return value
 
@@ -29,5 +29,6 @@ class TestSimplePreprocessor(unittest.TestCase):
         preprocessor.remove_preprocessing_function(dummy_func)
         self.assertNotIn(dummy_func, preprocessor.preprocessing_functions)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

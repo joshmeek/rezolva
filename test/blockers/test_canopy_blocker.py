@@ -11,13 +11,13 @@ class TestCanopyBlocker(unittest.TestCase):
             Entity("2", {"x": 2, "y": 2}),
             Entity("3", {"x": 10, "y": 10}),
             Entity("4", {"x": 11, "y": 11}),
-            Entity("5", {"x": 20, "y": 20})
+            Entity("5", {"x": 20, "y": 20}),
         ]
         self.blocker = CanopyBlocker(euclidean_distance, t1=5, t2=2)
 
     def test_create_blocks(self):
         blocks = self.blocker.create_blocks(self.entities)
-        
+
         # Check if we have the expected number of blocks
         self.assertGreaterEqual(len(blocks), 2)
         self.assertLessEqual(len(blocks), 5)
@@ -32,9 +32,10 @@ class TestCanopyBlocker(unittest.TestCase):
         for block in blocks.values():
             if len(block) > 1:
                 for i in range(len(block)):
-                    for j in range(i+1, len(block)):
+                    for j in range(i + 1, len(block)):
                         distance = euclidean_distance(block[i], block[j])
                         self.assertLess(distance, self.blocker.t1)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

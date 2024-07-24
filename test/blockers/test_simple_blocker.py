@@ -6,7 +6,7 @@ from start_er.core.base import Entity
 
 class TestSimpleBlocker(unittest.TestCase):
     def setUp(self):
-        self.blocker = SimpleBlocker(lambda e: e.attributes['category'])
+        self.blocker = SimpleBlocker(lambda e: e.attributes["category"])
 
     def test_create_blocks(self):
         entities = [
@@ -39,7 +39,7 @@ class TestSimpleBlocker(unittest.TestCase):
         self.assertEqual(len(blocks["Smartphone"]), 1)
 
     def test_custom_blocking_key(self):
-        blocker = SimpleBlocker(lambda e: e.attributes['name'][0].upper())
+        blocker = SimpleBlocker(lambda e: e.attributes["name"][0].upper())
         entities = [
             Entity("1", {"name": "iPhone 12", "category": "Smartphone"}),
             Entity("2", {"name": "Galaxy S21", "category": "Smartphone"}),
@@ -56,5 +56,6 @@ class TestSimpleBlocker(unittest.TestCase):
         self.assertEqual(len(blocks["G"]), 1)
         self.assertEqual(len(blocks["M"]), 1)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -6,12 +6,12 @@ from start_er.matchers.jaccard_matcher import JaccardMatcher
 
 class TestJaccardMatcher(unittest.TestCase):
     def setUp(self):
-        self.matcher = JaccardMatcher(threshold=0.3, attribute_weights={'title': 1.0, 'description': 0.5})
+        self.matcher = JaccardMatcher(threshold=0.3, attribute_weights={"title": 1.0, "description": 0.5})
 
     def test_match(self):
         entity = Entity("1", {"title": "iPhone 12", "description": "Latest smartphone from Apple"})
         model = {
-            'entities': {
+            "entities": {
                 "2": Entity("2", {"title": "iPhone 12 Pro", "description": "Advanced smartphone from Apple"}),
                 "3": Entity("3", {"title": "Galaxy S21", "description": "Latest smartphone from Samsung"}),
             }
@@ -35,5 +35,6 @@ class TestJaccardMatcher(unittest.TestCase):
         for sim, expected_sim in zip(similarities, expected_similarities):
             self.assertAlmostEqual(sim, expected_sim, places=6)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

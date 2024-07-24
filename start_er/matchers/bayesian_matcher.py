@@ -31,6 +31,7 @@ class BayesianMatcher(Matcher):
     :param threshold: The probability threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
     """
+
     def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}
@@ -42,15 +43,15 @@ class BayesianMatcher(Matcher):
             self.attribute_probabilities[attr] = {}
             value_counts = {}
             for entity in entities:
-                value = entity.attributes.get(attr, '')
+                value = entity.attributes.get(attr, "")
                 value_counts[value] = value_counts.get(value, 0) + 1
-            
+
             for value, count in value_counts.items():
                 self.attribute_probabilities[attr][value] = count / total_entities
 
     def match(self, entity: Entity, model: Dict) -> List[Tuple[Entity, float]]:
         matches = []
-        for candidate_id, candidate in model['entities'].items():
+        for candidate_id, candidate in model["entities"].items():
             if candidate_id != entity.id:
                 similarity = self._calculate_similarity(entity, candidate)
                 if similarity >= self.threshold:
@@ -62,15 +63,15 @@ class BayesianMatcher(Matcher):
         total_weight = sum(self.attribute_weights.values())
 
         for attr, weight in self.attribute_weights.items():
-            value1 = entity1.attributes.get(attr, '')
-            value2 = entity2.attributes.get(attr, '')
-            
+            value1 = entity1.attributes.get(attr, "")
+            value2 = entity2.attributes.get(attr, "")
+
             if value1 == value2:
                 prob = self.attribute_probabilities[attr].get(value1, 0.5)
                 similarity = 1 - prob  # Rarer matches are more significant
             else:
                 similarity = self._jaccard_similarity(value1, value2)
-            
+
             total_similarity += similarity * (weight / total_weight)
 
         return total_similarity

@@ -16,6 +16,7 @@ class ResolutionVisualizer:
     visualizer = ResolutionVisualizer(resolver)
     visualization = visualizer.visualize_resolution(entity)
     """
+
     def __init__(self, resolver: EntityResolver):
         self.resolver = resolver
 
@@ -58,9 +59,9 @@ class ResolutionVisualizer:
         viz += f"   Preprocessor: {type(self.resolver.preprocessor).__name__}\n"
         viz += f"   Blocker: {type(self.resolver.blocker).__name__}\n"
         viz += f"   Matcher: {type(self.resolver.matcher).__name__}\n"
-        if hasattr(self.resolver.matcher, 'threshold'):
+        if hasattr(self.resolver.matcher, "threshold"):
             viz += f"   Matcher threshold: {self.resolver.matcher.threshold}\n"
-        if hasattr(self.resolver.matcher, 'attribute_weights'):
+        if hasattr(self.resolver.matcher, "attribute_weights"):
             viz += f"   Attribute weights: {json.dumps(self.resolver.matcher.attribute_weights, indent=6)}\n"
         return viz
 
@@ -82,7 +83,7 @@ class ResolutionVisualizer:
             viz += f"   - Block '{block_key}': {len(entities)} entities\n"
             if entity in entities:
                 entity_block_key = block_key
-        
+
         if entity_block_key:
             viz += f"\n   Entity assigned to block: '{entity_block_key}'\n"
             viz += f"   Entities in the same block:\n"
@@ -100,12 +101,13 @@ class ResolutionVisualizer:
                 viz += f"      {key}: {value}\n"
             viz += f"      Similarity breakdown:\n"
             for attr, weight in self.resolver.matcher.attribute_weights.items():
-                entity_value = entity.attributes.get(attr, '')
-                match_value = match_entity.attributes.get(attr, '')
+                entity_value = entity.attributes.get(attr, "")
+                match_value = match_entity.attributes.get(attr, "")
                 attr_sim = self.resolver.matcher._calculate_attribute_similarity(entity_value, match_value)
                 viz += f"      - {attr}: {attr_sim:.4f} (weight: {weight})\n"
             viz += "\n"
         return viz
+
 
 def visualize_resolution_process(resolver: EntityResolver, entity: Entity) -> str:
     """

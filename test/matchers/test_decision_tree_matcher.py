@@ -2,6 +2,7 @@ import unittest
 from start_er.matchers.decision_tree_matcher import DecisionTreeMatcher
 from start_er.core.base import Entity
 
+
 class TestSimpleDecisionTreeMatcher(unittest.TestCase):
     def setUp(self):
         self.entities = [
@@ -29,5 +30,6 @@ class TestSimpleDecisionTreeMatcher(unittest.TestCase):
         self.assertGreater(len(matches), 0)
         self.assertEqual(matches[0][0].id, "4")  # Jane Doe should be the best match for John Doe
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

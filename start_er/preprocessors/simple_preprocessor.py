@@ -25,6 +25,7 @@ class SimplePreprocessor(Preprocessor):
     :param preprocessing_functions: A list of functions to be applied to each attribute
     :inherits: Preprocessor
     """
+
     def __init__(self, preprocessing_functions: List[Callable[[Any], Any]] = None):
         self.preprocessing_functions = preprocessing_functions or []
 

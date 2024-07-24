@@ -6,14 +6,14 @@ from start_er.matchers.bayesian_matcher import BayesianMatcher
 
 class TestBayesianMatcher(unittest.TestCase):
     def setUp(self):
-        self.matcher = BayesianMatcher(threshold=0.5, attribute_weights={'title': 1.0, 'category': 0.5})
+        self.matcher = BayesianMatcher(threshold=0.5, attribute_weights={"title": 1.0, "category": 0.5})
 
     def test_train_and_match(self):
         training_entities = [
             Entity("1", {"title": "iPhone 12", "category": "Smartphone"}),
             Entity("2", {"title": "Galaxy S21", "category": "Smartphone"}),
             Entity("3", {"title": "MacBook Pro", "category": "Laptop"}),
-            Entity("4", {"title": "Dell XPS", "category": "Laptop"})
+            Entity("4", {"title": "Dell XPS", "category": "Laptop"}),
         ]
         self.matcher.train(training_entities)
 
@@ -47,5 +47,6 @@ class TestBayesianMatcher(unittest.TestCase):
 
     #     self.assertLess(probability, 1.0)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
