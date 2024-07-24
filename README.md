@@ -21,7 +21,7 @@ pip install start-er
 
 ## Quick Start
 
-Here's a simple example of how to use Tiny ER:
+Here's a simple example of how to use start-er:
 
 ```python
 from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
@@ -65,7 +65,7 @@ For more advanced examples, including custom preprocessing, different matching a
 
 ## Customization
 
-You can extend Tiny ER by creating custom implementations of its components:
+You can extend start-er by creating custom implementations of its components:
 
 1. Subclass the base component classes (`Preprocessor`, `ModelBuilder`, `Matcher`, `Blocker`)
 2. Implement the required methods with your custom logic
@@ -73,7 +73,7 @@ You can extend Tiny ER by creating custom implementations of its components:
 
 ## Contributing
 
-Contributions to Tiny ER are welcome! Please feel free to submit a Pull Request.
+Contributions to start-er are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
