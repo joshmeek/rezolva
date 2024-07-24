@@ -5,10 +5,30 @@ from start_er import Entity, EntityResolver
 
 
 class ResolutionVisualizer:
+    """
+    A class for visualizing the entity resolution process.
+
+    This class provides methods to create visual representations of how entities
+    are processed through the various stages of the entity resolution pipeline,
+    including preprocessing, blocking, and matching.
+
+    Usage:
+    visualizer = ResolutionVisualizer(resolver)
+    visualization = visualizer.visualize_resolution(entity)
+    """
     def __init__(self, resolver: EntityResolver):
         self.resolver = resolver
 
     def visualize_resolution(self, entity: Entity) -> str:
+        """
+        Generate a textual visualization of the resolution process for a single entity.
+
+        This method shows how the input entity is transformed and matched through each
+        stage of the entity resolution process.
+
+        :param entity: The Entity object to visualize the resolution process for
+        :return: A string containing the visualization of the resolution process
+        """
         visualization = f"Resolution process for Entity {entity.id}\n"
         visualization += "=" * 60 + "\n\n"
 
@@ -88,5 +108,15 @@ class ResolutionVisualizer:
         return viz
 
 def visualize_resolution_process(resolver: EntityResolver, entity: Entity) -> str:
+    """
+    A utility function to visualize the entity resolution process for a given entity.
+
+    This function creates a ResolutionVisualizer and uses it to generate a visualization
+    of how the resolver processes the given entity.
+
+    :param resolver: An instance of EntityResolver to use for the visualization
+    :param entity: The Entity object to visualize the resolution process for
+    :return: A string containing the visualization of the resolution process
+    """
     visualizer = ResolutionVisualizer(resolver)
     return visualizer.visualize_resolution(entity)

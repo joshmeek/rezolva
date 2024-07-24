@@ -7,6 +7,30 @@ from ..core.base import Entity, Matcher
 
 
 class BayesianMatcher(Matcher):
+    """
+    A matcher that uses Bayesian probability to determine the likelihood of a match between entities.
+
+    Bayesian matching calculates the probability that two entities refer to the same real-world object
+    given the observed attributes. It uses Bayes' theorem to update probabilities based on observed data.
+
+    How Bayesian Matching works:
+    1. Calculate prior probabilities based on the frequency of attribute values in the dataset
+    2. For each pair of entities, calculate the likelihood of observing their attributes if they were a match
+    3. Use Bayes' theorem to calculate the posterior probability of a match given the observed attributes
+
+    Advantages:
+    - Provides a probabilistic framework for entity matching
+    - Can incorporate domain knowledge through prior probabilities
+    - Handles uncertainty and missing data well
+
+    Disadvantages:
+    - Requires a training phase to estimate probabilities
+    - Can be computationally expensive for large datasets or many attributes
+    - Assumes independence between attributes, which may not always hold
+
+    :param threshold: The probability threshold above which entities are considered a match
+    :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    """
     def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}

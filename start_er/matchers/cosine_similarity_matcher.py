@@ -6,6 +6,29 @@ from .base_matcher import BaseAttributeMatcher
 
 
 class CosineSimilarityMatcher(BaseAttributeMatcher):
+    """
+    A matcher that uses cosine similarity to compare entities.
+
+    Cosine similarity measures the cosine of the angle between two vectors in a multi-dimensional space.
+    In the context of entity matching, these vectors represent the attributes of entities.
+
+    How Cosine Similarity works:
+    1. Convert entity attributes into numerical vectors (usually using TF-IDF weighting for text)
+    2. Compute the dot product of the two vectors
+    3. Divide the dot product by the product of the magnitudes of the two vectors
+
+    Advantages:
+    - Invariant to scaling, so it can handle attributes with different magnitudes well
+    - Works well for sparse vectors, making it suitable for text-heavy attributes
+    - Captures the similarity of direction rather than magnitude
+
+    Disadvantages:
+    - Doesn't consider the magnitude of attributes, which might be important in some cases
+    - Can be computationally expensive for high-dimensional data
+
+    :param threshold: The similarity threshold above which entities are considered a match
+    :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    """
     def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):
         super().__init__(threshold, attribute_weights)
 

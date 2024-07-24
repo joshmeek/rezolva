@@ -1,3 +1,10 @@
+"""
+Collection of preprocessing functions for use with SimplePreprocessor
+
+These functions can be passed to SimplePreprocessor to create a custom preprocessing pipeline.
+Each function takes a single value as input and returns the processed value.
+"""
+
 import re
 import unicodedata
 from datetime import datetime

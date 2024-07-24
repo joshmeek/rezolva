@@ -5,6 +5,26 @@ from ..core.base import Entity, ModelBuilder
 
 
 class InvertedIndexModelBuilder(ModelBuilder):
+    """
+    A model builder that creates an inverted index for efficient entity matching.
+
+    This model builder creates an inverted index where each token (word or n-gram)
+    is mapped to a list of entity IDs that contain that token in their attributes.
+
+    The inverted index model is particularly useful for text-heavy attributes and
+    supports efficient partial matching and keyword search.
+
+    How it works:
+    1. Tokenize the specified attributes of each entity
+    2. For each token, create an entry in the inverted index pointing to the entity
+
+    Usage:
+    builder = InvertedIndexModelBuilder(['name', 'description'])
+    model = builder.train(entities)
+
+    :param attributes: A list of attribute names to be indexed
+    :inherits: ModelBuilder
+    """
     def __init__(self, attributes: List[str]):
         self.attributes = attributes
 

@@ -11,6 +11,30 @@ class DecisionTreeNode:
         self.value = value
 
 class DecisionTreeMatcher(Matcher):
+    """
+    A matcher that uses a decision tree to classify entity pairs as matches or non-matches.
+
+    Decision tree matching builds a tree-like model of decisions based on attribute comparisons.
+    It learns rules from labeled training data to classify new entity pairs.
+
+    How Decision Tree Matching works:
+    1. Train a decision tree on labeled entity pairs, using attribute similarities as features
+    2. For each new entity pair, traverse the tree based on their attribute similarities
+    3. Classify the pair as a match or non-match based on the leaf node reached
+
+    Advantages:
+    - Provides interpretable rules for matching decisions
+    - Can handle both numerical and categorical attributes
+    - Automatically selects the most discriminative attributes for matching
+
+    Disadvantages:
+    - May overfit to training data if not properly pruned
+    - Requires labeled training data
+    - Performance depends on the quality and representativeness of the training data
+
+    :param attributes: A list of attributes to consider for matching
+    :param max_depth: The maximum depth of the decision tree
+    """
     def __init__(self, attributes: List[str], max_depth: int = 3):
         self.attributes = attributes
         self.max_depth = max_depth

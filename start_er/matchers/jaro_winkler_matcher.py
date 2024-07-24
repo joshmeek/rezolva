@@ -2,6 +2,29 @@ from .base_matcher import BaseAttributeMatcher
 
 
 class JaroWinklerMatcher(BaseAttributeMatcher):
+    """
+    A matcher that uses Jaro-Winkler distance to compare entities.
+
+    Jaro-Winkler distance is a string metric measuring edit distance between two sequences. It's a variant of the
+    Jaro distance metric and mainly used for comparing short strings such as person names.
+
+    How Jaro-Winkler works:
+    1. Calculate the Jaro distance
+    2. Determine the length of the common prefix up to 4 characters
+    3. Adjust the Jaro distance based on the common prefix
+
+    Advantages:
+    - Works well for short strings like names or words
+    - Gives more favorable ratings to strings that match from the beginning
+    - Handles transpositions well
+
+    Disadvantages:
+    - May not be suitable for long strings or sentences
+    - Can be computationally expensive for large datasets
+
+    :param threshold: The similarity threshold above which entities are considered a match
+    :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    """
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:
         return self._jaro_winkler_similarity(val1, val2)
 

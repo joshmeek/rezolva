@@ -5,6 +5,30 @@ from ..core.base import Entity, Matcher
 
 
 class MinHashMatcher(Matcher):
+    """
+    A matcher that uses MinHash and Locality-Sensitive Hashing (LSH) for efficient similarity estimation.
+
+    MinHash is a technique for quickly estimating how similar two sets are. It works by selecting a
+    random sample of elements from each set in a way that makes it easy to estimate the Jaccard similarity.
+
+    How MinHash Matching works:
+    1. Convert each entity's attributes into a set of features (e.g., words or n-grams)
+    2. Apply multiple hash functions to each feature set to create MinHash signatures
+    3. Compare MinHash signatures to estimate Jaccard similarity
+
+    Advantages:
+    - Efficient for large datasets
+    - Can handle high-dimensional data well
+    - Provides a good approximation of Jaccard similarity with less computation
+
+    Disadvantages:
+    - Provides an estimate, not an exact similarity
+    - Requires tuning of parameters (number of hash functions, threshold)
+
+    :param threshold: The similarity threshold above which entities are considered a match
+    :param num_hash_functions: The number of hash functions to use for MinHash
+    :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    """
     def __init__(self, threshold: float = 0.5, num_hash_functions: int = 100, attribute_weights: Dict[str, float] = None):
         self.threshold = threshold
         self.num_hash_functions = num_hash_functions

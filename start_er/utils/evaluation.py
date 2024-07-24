@@ -5,15 +5,49 @@ from start_er import Entity, EntityResolver
 
 
 def calculate_precision_recall_f1(true_positives: int, false_positives: int, false_negatives: int) -> Tuple[float, float, float]:
+    """
+    Calculate precision, recall, and F1 score for entity resolution results.
+
+    Precision: The fraction of predicted matches that are correct.
+    Recall: The fraction of actual matches that were predicted.
+    F1 Score: The harmonic mean of precision and recall.
+
+    :param true_positives: Number of correctly predicted matches
+    :param false_positives: Number of incorrectly predicted matches
+    :param false_negatives: Number of actual matches that were not predicted
+    :return: A tuple containing (precision, recall, F1 score)
+    """
     precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) > 0 else 0
     recall = true_positives / (true_positives + false_negatives) if (true_positives + false_negatives) > 0 else 0
     f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
     return precision, recall, f1
 
 def calculate_accuracy(true_positives: int, true_negatives: int, total_comparisons: int) -> float:
+    """
+    Calculate accuracy for entity resolution results.
+
+    Accuracy: The fraction of correct predictions (both true positives and true negatives) among the total number of cases examined.
+
+    :param true_positives: Number of correctly predicted matches
+    :param true_negatives: Number of correctly predicted non-matches
+    :param total_comparisons: Total number of comparisons made
+    :return: Accuracy score
+    """
     return (true_positives + true_negatives) / total_comparisons if total_comparisons > 0 else 0
 
 def evaluate_resolver(resolver: EntityResolver, test_entities: List[Entity], ground_truth: Dict[str, List[str]], threshold: float = 0.5) -> Dict[str, float]:
+    """
+    Evaluate the performance of an EntityResolver using a set of test entities and ground truth data.
+
+    This function runs the resolver on the test entities and compares the results to the ground truth,
+    calculating precision, recall, F1 score, and accuracy.
+
+    :param resolver: An instance of EntityResolver to evaluate
+    :param test_entities: A list of Entity objects to use for testing
+    :param ground_truth: A dictionary mapping entity IDs to lists of matching entity IDs
+    :param threshold: The similarity threshold to use for determining matches
+    :return: A dictionary containing the evaluation metrics (precision, recall, F1, accuracy)
+    """
     true_positives = 0
     false_positives = 0
     false_negatives = 0
@@ -43,6 +77,15 @@ def evaluate_resolver(resolver: EntityResolver, test_entities: List[Entity], gro
     }
 
 def generate_performance_report(metrics: Dict[str, float]) -> str:
+    """
+    Generate a formatted performance report from evaluation metrics.
+
+    This function takes a dictionary of evaluation metrics and creates a
+    human-readable string report.
+
+    :param metrics: A dictionary containing evaluation metrics (precision, recall, F1, accuracy)
+    :return: A formatted string containing the performance report
+    """
     report = "Entity Resolution Performance Report\n"
     report += "===================================\n\n"
     report += f"Precision: {metrics['precision']:.3f}\n"
@@ -52,6 +95,18 @@ def generate_performance_report(metrics: Dict[str, float]) -> str:
     return report
 
 def cross_validate(resolver: EntityResolver, entities: List[Entity], ground_truth: Dict[str, List[str]], k: int = 5) -> Dict[str, List[float]]:
+    """
+    Perform k-fold cross-validation on an EntityResolver.
+
+    This function splits the data into k folds, trains the resolver on k-1 folds and tests on the remaining fold,
+    repeating this process k times. It returns the evaluation metrics for each fold.
+
+    :param resolver: An instance of EntityResolver to evaluate
+    :param entities: A list of all Entity objects
+    :param ground_truth: A dictionary mapping entity IDs to lists of matching entity IDs
+    :param k: The number of folds for cross-validation
+    :return: A dictionary containing lists of evaluation metrics for each fold
+    """
     fold_size = len(entities) // k
     results = {
         "precision": [],
@@ -73,6 +128,14 @@ def cross_validate(resolver: EntityResolver, entities: List[Entity], ground_trut
     return results
 
 def print_cross_validation_report(cv_results: Dict[str, List[float]]) -> None:
+    """
+    Print a report of cross-validation results.
+
+    This function takes the results of cross-validation and prints a summary
+    including the mean and standard deviation of each metric across all folds.
+
+    :param cv_results: A dictionary containing lists of evaluation metrics for each fold
+    """
     print("Cross-Validation Results")
     print("========================\n")
     for metric, values in cv_results.items():

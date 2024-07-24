@@ -4,6 +4,27 @@ from ..core.base import Entity, ModelBuilder
 
 
 class PhoneticModelBuilder(ModelBuilder):
+    """
+    A model builder that creates a phonetic-based index for sound-alike matching.
+
+    This model builder uses phonetic algorithms (e.g., Soundex, Metaphone) to create
+    a phonetic representation of specified string attributes. This allows for matching
+    entities based on how they sound rather than exact spelling.
+
+    How it works:
+    1. For each entity, generate phonetic codes for specified attributes
+    2. Create an index mapping phonetic codes to sets of entity IDs
+
+    This model is particularly useful for matching names or other string attributes
+    where spelling variations or transcription errors are common.
+
+    Usage:
+    builder = PhoneticModelBuilder(['name', 'city'])
+    model = builder.train(entities)
+
+    :param attributes: A list of attribute names to be phonetically encoded
+    :inherits: ModelBuilder
+    """
     def __init__(self, attributes: List[str]):
         self.attributes = attributes
 

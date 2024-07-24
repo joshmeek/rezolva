@@ -4,6 +4,15 @@ from ..core.base import Entity, Matcher
 
 
 class BaseAttributeMatcher(Matcher):
+    """
+    A base class for attribute-based matchers.
+
+    This class provides a foundation for matchers that compare entities based on their attributes.
+    It implements a basic matching algorithm and allows for attribute weighting.
+
+    :param threshold: The similarity threshold above which entities are considered a match
+    :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    """
     def __init__(self, threshold: float = 0.7, attribute_weights: Dict[str, float] = None):
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}

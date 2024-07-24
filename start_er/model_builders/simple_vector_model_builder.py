@@ -6,6 +6,33 @@ from ..core.base import Entity, ModelBuilder
 
 
 class SimpleVectorModelBuilder(ModelBuilder):
+    """
+    A model builder that creates vector representations of entities for similarity-based matching.
+
+    This model builder converts entity attributes into numerical vectors, typically using
+    techniques like TF-IDF (Term Frequency-Inverse Document Frequency). These vector
+    representations can then be used for efficient similarity computations.
+
+    How it works:
+    1. Build a vocabulary from all entity attributes
+    2. Compute IDF (Inverse Document Frequency) for each term in the vocabulary
+    3. For each entity, compute a TF-IDF vector based on its attributes
+
+    The resulting model includes:
+    - A dictionary of entity vectors
+    - The global vocabulary
+    - IDF values for each term in the vocabulary
+
+    This model is particularly useful for cosine similarity-based matching and can handle
+    partial matches and fuzzy matching more effectively than simple index-based models.
+
+    Usage:
+    builder = SimpleVectorModelBuilder(['name', 'description'])
+    model = builder.train(entities)
+
+    :param attributes: A list of attribute names to be vectorized
+    :inherits: ModelBuilder
+    """
     def __init__(self, attributes: List[str]):
         self.attributes = attributes
         self.vocabulary = set()

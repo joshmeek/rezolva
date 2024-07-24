@@ -5,6 +5,25 @@ from ..core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
 
 
 class EntityResolver:
+    """
+    The main class orchestrating the entity resolution process.
+
+    EntityResolver combines all components of the entity resolution pipeline (preprocessor,
+    model builder, matcher, and blocker) to perform the complete entity resolution task.
+    It provides methods to train the resolution model and resolve new entities.
+
+    How EntityResolver works:
+    1. Preprocess input entities using the specified preprocessor
+    2. Build or update the resolution model using the model builder
+    3. Create blocks of potentially matching entities using the blocker
+    4. Compare entities within each block using the matcher
+    5. Return the matched entities above a specified threshold
+
+    :param preprocessor: An instance of a Preprocessor subclass
+    :param model_builder: An instance of a ModelBuilder subclass
+    :param matcher: An instance of a Matcher subclass
+    :param blocker: An instance of a Blocker subclass
+    """
     def __init__(self, preprocessor: Preprocessor, model_builder: ModelBuilder, matcher: Matcher, blocker: Blocker):
         self.preprocessor = preprocessor
         self.model_builder = model_builder

@@ -3,6 +3,29 @@ from collections import defaultdict
 from ..core.base import Blocker, Entity
 
 class SuffixArrayBlocker(Blocker):
+    """
+    A blocking method that uses suffix arrays to create blocks of entities.
+
+    Suffix arrays are efficient data structures for string processing tasks. This blocker
+    creates blocks based on common suffixes of a specified attribute of the entities.
+
+    How SuffixArrayBlocker works:
+    1. For each entity, generate all suffixes of the specified attribute
+    2. Create a suffix array by sorting these suffixes
+    3. Group entities that share suffixes longer than a minimum length
+
+    Advantages:
+    - Efficient for string-based blocking
+    - Can capture similarities even when differences occur at the beginning of strings
+    - Adjustable minimum suffix length allows for trade-off between recall and efficiency
+
+    Disadvantages:
+    - May create large blocks for short minimum suffix lengths
+    - Not effective for attributes with high variability at the end of strings
+
+    :param key_func: A function that takes an Entity and returns the value to generate suffixes from
+    :param min_suffix_length: The minimum length of suffixes to consider for blocking
+    """
     def __init__(self, key_func: Callable[[Entity], str], min_suffix_length: int):
         self.key_func = key_func or default_key_func
         self.min_suffix_length = min_suffix_length

@@ -7,6 +7,28 @@ from .base_matcher import BaseAttributeMatcher
 
 
 class TfIdfMatcher(BaseAttributeMatcher):
+    """
+    A matcher that uses TF-IDF (Term Frequency-Inverse Document Frequency) vectors for comparison.
+
+    TF-IDF is a numerical statistic that reflects how important a word is to a document in a collection.
+    This matcher converts entity attributes into TF-IDF vectors and then compares these vectors.
+
+    How TF-IDF Matching works:
+    1. Compute TF-IDF vectors for all entities in the dataset
+    2. For each comparison, calculate the similarity between TF-IDF vectors (often using cosine similarity)
+
+    Advantages:
+    - Considers both the frequency of terms in a document and their importance in the entire corpus
+    - Reduces the impact of common words that don't contribute much to similarity
+    - Works well for text-heavy attributes
+
+    Disadvantages:
+    - Requires preprocessing of the entire dataset to compute IDF
+    - May not work well for very short text or non-textual attributes
+
+    :param threshold: The similarity threshold above which entities are considered a match
+    :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    """
     def __init__(self, threshold: float = 0.3, attribute_weights: Dict[str, float] = None):
         super().__init__(threshold, attribute_weights)
         self.idf = {}
