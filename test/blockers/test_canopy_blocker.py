@@ -1,6 +1,8 @@
 import unittest
+
 from start_er.blockers.canopy_blocker import CanopyBlocker, euclidean_distance
 from start_er.core.base import Entity
+
 
 class TestCanopyBlocker(unittest.TestCase):
     def setUp(self):

@@ -1,6 +1,8 @@
 import random
-from typing import List, Dict, Tuple
+from typing import Dict, List, Tuple
+
 from ..core.base import Blocker, Entity
+
 
 class CanopyBlocker(Blocker):
     def __init__(self, distance_func, t1: float, t2: float):

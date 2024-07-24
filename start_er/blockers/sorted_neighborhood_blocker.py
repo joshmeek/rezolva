@@ -1,5 +1,7 @@
-from typing import List, Dict, Callable
+from typing import Callable, Dict, List
+
 from ..core.base import Blocker, Entity
+
 
 class SortedNeighborhoodBlocker(Blocker):
     def __init__(self, key_func: Callable[[Entity], str], window_size: int):
