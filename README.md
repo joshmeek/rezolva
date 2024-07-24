@@ -1,6 +1,6 @@
 # start-er
 
-**Entity resolution for everyone. Minimal. No Dependencies.**
+**Entity resolution for everyone. Minimal. No dependencies.**
 
 _**start-er**_ is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects.
 
