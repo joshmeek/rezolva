@@ -2,7 +2,7 @@
 
 **Entity resolution for everyone. Minimal. No dependencies.**
 
-_**start-er**_ is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects. _(it is also very much a work in progress)_
+_**start-er**_ (pronounced _starter_ because why not?) is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects. _(it is also very much a work in progress)_
 
 ## Features
 
