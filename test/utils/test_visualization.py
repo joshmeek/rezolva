@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 
 from rezolva import Entity, EntityResolver
 from rezolva.utils.visualization import (ResolutionVisualizer,
-                                          visualize_resolution_process)
+                                         visualize_resolution_process)
 
 
 class TestResolutionVisualizer(unittest.TestCase):

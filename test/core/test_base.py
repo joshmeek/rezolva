@@ -1,7 +1,7 @@
 import unittest
 
-from rezolva.core.base import (Blocker, DataLoader, DataSaver, Entity,
-                                Matcher, ModelBuilder, Preprocessor)
+from rezolva.core.base import (Blocker, DataLoader, DataSaver, Entity, Matcher,
+                               ModelBuilder, Preprocessor)
 
 
 class TestEntity(unittest.TestCase):

@@ -2,8 +2,8 @@ from rezolva import Entity, EntityResolver, SimpleBlocker, SimplePreprocessor
 from rezolva.matchers import CosineSimilarityMatcher
 from rezolva.model_builders import SimpleVectorModelBuilder
 from rezolva.preprocessors.preprocessing_functions import (lowercase,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+                                                           remove_punctuation,
+                                                           strip_whitespace)
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

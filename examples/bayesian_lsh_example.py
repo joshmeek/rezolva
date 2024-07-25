@@ -3,8 +3,8 @@ from rezolva.blockers import LSHBlocker
 from rezolva.matchers import BayesianMatcher
 from rezolva.model_builders import SimpleModelBuilder
 from rezolva.preprocessors.preprocessing_functions import (lowercase,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+                                                           remove_punctuation,
+                                                           strip_whitespace)
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

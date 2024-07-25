@@ -4,7 +4,7 @@ import unittest
 
 from rezolva.core.base import Entity
 from rezolva.data_handlers.pickle_handlers import (PickleDataLoader,
-                                                    PickleDataSaver)
+                                                   PickleDataSaver)
 
 
 class TestPickleHandlers(unittest.TestCase):

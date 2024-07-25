@@ -1,7 +1,7 @@
 import unittest
 
 from rezolva.blockers.suffix_array_blocker import (SuffixArrayBlocker,
-                                                    default_key_func)
+                                                   default_key_func)
 from rezolva.core.base import Entity
 
 
