@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/joshmeek/start_er",
-    packages=["start-er"],
+    packages=["start_er"],
     python_requires=">=3.7",
     install_requires=[],
     classifiers=[
