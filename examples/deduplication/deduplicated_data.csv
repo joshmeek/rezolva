@@ -1,13 +1,13 @@
-email,phone,id,address,name
-david.wilson@hotmail.com,3008482395,44,"843 Maple St, Chicago, Tx",David Wilson
-david.wilson@outlook.com,6792329084,84,"456 Washington St, Los Angeles, Il",David Wilson
-jane.smith@yahoo.com,9608942929,2,"830 Cedar St, Phoenix, Pa",Jane Smith
-jennifer.anderson@yahoo.com,9776688993,34,"279 Maple St, Chicago, Az",Jennifer Anderson
-john.doe@yahoo.com,1767847794,58,"824 Lake St, Philadelphia, Il",John Doe
-michael.johnson@outlook.com,8801624335,55,"449 Maple St, Los Angeles, Tx",Michael Johnson
-sarah.davis@yahoo.com,5886424539,3,"212 Elm St, Chicago, Il",Sarah Davis
-robert.taylor@outlook.com,1433152511,29,"732 Maple St, Los Angeles, Il",Robert Taylor
-sarah.davis@hotmail.com,7566454252,13,"757 Pine St, Houston, Az",Sarah Davis
-sarah.davis@yahoo.com,6893877110,45,"864 Pine St, Houston, Ny",Sarah Davis
-william.thomas@outlook.com,3291225281,52,"149 Lake St, Dallas, Ny",William Thomas
-william.thomas@hotmail.com,1896973062,48,"655 Main St, Chicago, Ca",William Thomas
+id,phone,email,address,name
+2,960-894-2929,jane.smith@yahoo.com,"830 Cedar St, Phoenix, PA",JANE SMITH
+3,5886424539,sarah.davis@yahoo.com,"212 Elm Street, Chicago, IL",SARAH DAVIS
+13,756-645-4252,sarah.davis@hotmail.com,"757 Pine St, Houston, AZ",Sarah Davis
+29,143-315-2511,robert.taylor@outlook.com,"732 Maple St, Los Angeles, IL",Robert Taylor
+34,977-668-8993,jennifer.anderson@yahoo.com,"279 Maple St, Chicago, AZ",Jennifer Anderson
+44,300-848-2395,david.wilson@hotmail.com,"843 Maple St, Chicago, TX",David Wilson
+45,689-387-7110,sarah.davis@yahoo.com,"864 Pine St, Houston, NY",Sarah Davis
+48,189-697-3062,william.thomas@hotmail.com,"655 Main St, Chicago, CA",William Thomas
+52,329-122-5281,william.thomas@outlook.com,"149 Lake St, Dallas, NY",William Thomas
+55,8801624335,michael.johnson@outlook.com,"449 Maple St, Los Angeles, TX",Michael Johnson
+58,176-784-7794,john.doe@yahoo.com,"824 Lake St, Philadelphia, IL",John Doe
+84,679-232-9084,david.wilson@outlook.com,"456 Washington St, Los Angeles, IL",David Wilson
