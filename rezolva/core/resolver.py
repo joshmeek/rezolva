@@ -28,7 +28,7 @@ class EntityResolver:
     :param blocker: An instance of a Blocker subclass
     """
 
-    def __init__(self, preprocessor, model_builder, matcher, blocker):
+    def __init__(self, preprocessor: Preprocessor, model_builder: ModelBuilder, matcher: Matcher, blocker: Blocker):
         self.preprocessor = preprocessor
         self.model_builder = model_builder
         self.matcher = matcher
