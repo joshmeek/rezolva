@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Tuple
 
 from rezolva import (Entity, EntityResolver, SimpleModelBuilder,
-                      SimplePreprocessor)
+                     SimplePreprocessor)
 from rezolva.core.base import Blocker, Matcher
 
 

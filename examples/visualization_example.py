@@ -1,9 +1,9 @@
-from rezolva import (Entity, EntityResolver, SimpleBlocker,
-                      SimpleModelBuilder, SimplePreprocessor)
+from rezolva import (Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder,
+                     SimplePreprocessor)
 from rezolva.matchers import CosineSimilarityMatcher
 from rezolva.preprocessors.preprocessing_functions import (lowercase,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+                                                           remove_punctuation,
+                                                           strip_whitespace)
 from rezolva.utils.visualization import visualize_resolution_process
 
 # Set up a sample resolver

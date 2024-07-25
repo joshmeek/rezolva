@@ -3,9 +3,9 @@ from unittest.mock import Mock, patch
 
 from rezolva import Entity, EntityResolver
 from rezolva.utils.evaluation import (calculate_accuracy,
-                                       calculate_precision_recall_f1,
-                                       cross_validate, evaluate_resolver,
-                                       generate_performance_report)
+                                      calculate_precision_recall_f1,
+                                      cross_validate, evaluate_resolver,
+                                      generate_performance_report)
 
 
 class TestEvaluationUtils(unittest.TestCase):

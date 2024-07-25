@@ -1,12 +1,12 @@
-from rezolva import (Entity, EntityResolver, SimpleBlocker,
-                      SimpleModelBuilder, SimplePreprocessor)
+from rezolva import (Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder,
+                     SimplePreprocessor)
 from rezolva.matchers import CosineSimilarityMatcher
 from rezolva.preprocessors.preprocessing_functions import (extract_initials,
-                                                            lowercase,
-                                                            normalize_phone,
-                                                            remove_accents,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+                                                           lowercase,
+                                                           normalize_phone,
+                                                           remove_accents,
+                                                           remove_punctuation,
+                                                           strip_whitespace)
 
 
 def custom_brand_normalizer(value):

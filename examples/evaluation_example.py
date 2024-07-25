@@ -1,17 +1,17 @@
 import random
 from typing import List, Tuple
 
-from rezolva import (Entity, EntityResolver, SimpleBlocker,
-                      SimpleModelBuilder, SimplePreprocessor)
+from rezolva import (Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder,
+                     SimplePreprocessor)
 from rezolva.core.base import Blocker, Matcher
 from rezolva.matchers import CosineSimilarityMatcher
 from rezolva.preprocessors.preprocessing_functions import (lowercase,
-                                                            remove_punctuation,
-                                                            strip_whitespace)
+                                                           remove_punctuation,
+                                                           strip_whitespace)
 # Import the evaluation utilities
 from rezolva.utils.evaluation import (cross_validate, evaluate_resolver,
-                                       generate_performance_report,
-                                       print_cross_validation_report)
+                                      generate_performance_report,
+                                      print_cross_validation_report)
 
 
 # Custom components
