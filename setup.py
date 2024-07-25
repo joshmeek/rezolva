@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="rezolva",
-    version="0.1.1",
+    version="0.2.0",
     author="Josh Meek",
     author_email="mail@josh.dev",
     description="Entity resolution for everyone. Minimal. No dependencies.",
