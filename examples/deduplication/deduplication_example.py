@@ -4,10 +4,10 @@ from collections import Counter
 from datetime import datetime
 from typing import Any, Dict, List
 
-from start_er import Entity, EntityResolver
-from start_er.blockers import SortedNeighborhoodBlocker
-from start_er.matchers import CosineSimilarityMatcher
-from start_er.model_builders import SimpleModelBuilder
+from rezolva import Entity, EntityResolver
+from rezolva.blockers import SortedNeighborhoodBlocker
+from rezolva.matchers import CosineSimilarityMatcher
+from rezolva.model_builders import SimpleModelBuilder
 
 
 class CustomAdvancedPreprocessor:

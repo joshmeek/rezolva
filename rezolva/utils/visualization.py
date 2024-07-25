@@ -1,7 +1,7 @@
 import json
 from typing import Any, Dict, List
 
-from start_er import Entity, EntityResolver
+from rezolva import Entity, EntityResolver
 
 
 class ResolutionVisualizer:

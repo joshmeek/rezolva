@@ -1,10 +1,10 @@
-from start_er import (Entity, EntityResolver, SimpleBlocker,
+from rezolva import (Entity, EntityResolver, SimpleBlocker,
                       SimpleModelBuilder, SimplePreprocessor)
-from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import (lowercase,
+from rezolva.matchers import CosineSimilarityMatcher
+from rezolva.preprocessors.preprocessing_functions import (lowercase,
                                                             remove_punctuation,
                                                             strip_whitespace)
-from start_er.utils.visualization import visualize_resolution_process
+from rezolva.utils.visualization import visualize_resolution_process
 
 # Set up a sample resolver
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])

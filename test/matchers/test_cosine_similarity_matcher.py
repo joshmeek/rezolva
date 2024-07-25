@@ -1,8 +1,8 @@
 import math
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.cosine_similarity_matcher import CosineSimilarityMatcher
 
 
 class TestCosineSimilarityMatcher(unittest.TestCase):

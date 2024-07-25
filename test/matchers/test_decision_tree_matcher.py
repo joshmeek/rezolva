@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.decision_tree_matcher import DecisionTreeMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.decision_tree_matcher import DecisionTreeMatcher
 
 
 class TestSimpleDecisionTreeMatcher(unittest.TestCase):

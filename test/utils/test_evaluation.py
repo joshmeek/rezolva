@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from start_er import Entity, EntityResolver
-from start_er.utils.evaluation import (calculate_accuracy,
+from rezolva import Entity, EntityResolver
+from rezolva.utils.evaluation import (calculate_accuracy,
                                        calculate_precision_recall_f1,
                                        cross_validate, evaluate_resolver,
                                        generate_performance_report)
@@ -30,7 +30,7 @@ class TestEvaluationUtils(unittest.TestCase):
         accuracy = calculate_accuracy(true_positives=0, true_negatives=0, total_comparisons=0)
         self.assertEqual(accuracy, 0)
 
-    @patch("start_er.EntityResolver")
+    @patch("rezolva.EntityResolver")
     def test_evaluate_resolver(self, mock_resolver):
         # Mock the resolver and its resolve method
         mock_resolver.resolve.return_value = [
@@ -63,8 +63,8 @@ class TestEvaluationUtils(unittest.TestCase):
         self.assertIn("F1 Score: 0.774", report)
         self.assertIn("Accuracy: 0.900", report)
 
-    @patch("start_er.EntityResolver")
-    @patch("start_er.utils.evaluation.evaluate_resolver")
+    @patch("rezolva.EntityResolver")
+    @patch("rezolva.utils.evaluation.evaluate_resolver")
     def test_cross_validate(self, mock_evaluate_resolver, mock_resolver):
         # Mock the evaluate_resolver function
         mock_evaluate_resolver.return_value = {"precision": 0.8, "recall": 0.75, "f1": 0.7741, "accuracy": 0.9}

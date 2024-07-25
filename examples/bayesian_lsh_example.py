@@ -1,8 +1,8 @@
-from start_er import Entity, EntityResolver, SimplePreprocessor
-from start_er.blockers import LSHBlocker
-from start_er.matchers import BayesianMatcher
-from start_er.model_builders import SimpleModelBuilder
-from start_er.preprocessors.preprocessing_functions import (lowercase,
+from rezolva import Entity, EntityResolver, SimplePreprocessor
+from rezolva.blockers import LSHBlocker
+from rezolva.matchers import BayesianMatcher
+from rezolva.model_builders import SimpleModelBuilder
+from rezolva.preprocessors.preprocessing_functions import (lowercase,
                                                             remove_punctuation,
                                                             strip_whitespace)
 

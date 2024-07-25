@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.blockers.simple_blocker import SimpleBlocker
-from start_er.core.base import Entity
+from rezolva.blockers.simple_blocker import SimpleBlocker
+from rezolva.core.base import Entity
 
 
 class TestSimpleBlocker(unittest.TestCase):

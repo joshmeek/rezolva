@@ -2,8 +2,8 @@ import json
 import os
 import unittest
 
-from start_er.core.base import Entity
-from start_er.data_handlers.json_handlers import JSONDataLoader, JSONDataSaver
+from rezolva.core.base import Entity
+from rezolva.data_handlers.json_handlers import JSONDataLoader, JSONDataSaver
 
 
 class TestJSONHandlers(unittest.TestCase):

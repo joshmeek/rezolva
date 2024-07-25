@@ -1,8 +1,8 @@
 import math
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.tfidf_matcher import TfIdfMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.tfidf_matcher import TfIdfMatcher
 
 
 class TestTfIdfMatcher(unittest.TestCase):

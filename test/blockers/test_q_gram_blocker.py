@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.blockers.q_gram_blocker import QGramBlocker, default_key_func
-from start_er.core.base import Entity
+from rezolva.blockers.q_gram_blocker import QGramBlocker, default_key_func
+from rezolva.core.base import Entity
 
 
 class TestQGramBlocker(unittest.TestCase):

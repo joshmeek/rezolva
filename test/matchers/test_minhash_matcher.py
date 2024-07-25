@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.minhash_matcher import MinHashMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.minhash_matcher import MinHashMatcher
 
 
 class TestMinHashMatcher(unittest.TestCase):

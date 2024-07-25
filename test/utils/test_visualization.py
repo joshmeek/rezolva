@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from start_er import Entity, EntityResolver
-from start_er.utils.visualization import (ResolutionVisualizer,
+from rezolva import Entity, EntityResolver
+from rezolva.utils.visualization import (ResolutionVisualizer,
                                           visualize_resolution_process)
 
 
@@ -92,7 +92,7 @@ class TestResolutionVisualizer(unittest.TestCase):
     def test_visualize_resolution_process(self):
         entity = Entity("1", {"title": "iPhone 12", "description": "Latest Apple smartphone", "brand": "Apple"})
 
-        with patch("start_er.utils.visualization.ResolutionVisualizer") as MockVisualizer:
+        with patch("rezolva.utils.visualization.ResolutionVisualizer") as MockVisualizer:
             mock_instance = MockVisualizer.return_value
             mock_instance.visualize_resolution.return_value = "Mocked visualization"
 

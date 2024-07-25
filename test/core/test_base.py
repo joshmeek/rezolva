@@ -1,6 +1,6 @@
 import unittest
 
-from start_er.core.base import (Blocker, DataLoader, DataSaver, Entity,
+from rezolva.core.base import (Blocker, DataLoader, DataSaver, Entity,
                                 Matcher, ModelBuilder, Preprocessor)
 
 

@@ -2,8 +2,8 @@ import os
 import pickle
 import unittest
 
-from start_er.core.base import Entity
-from start_er.data_handlers.pickle_handlers import (PickleDataLoader,
+from rezolva.core.base import Entity
+from rezolva.data_handlers.pickle_handlers import (PickleDataLoader,
                                                     PickleDataSaver)
 
 

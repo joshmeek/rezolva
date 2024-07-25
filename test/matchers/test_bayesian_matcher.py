@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.bayesian_matcher import BayesianMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.bayesian_matcher import BayesianMatcher
 
 
 class TestBayesianMatcher(unittest.TestCase):

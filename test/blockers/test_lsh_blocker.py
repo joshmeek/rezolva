@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.blockers.lsh_blocker import LSHBlocker
-from start_er.core.base import Entity
+from rezolva.blockers.lsh_blocker import LSHBlocker
+from rezolva.core.base import Entity
 
 
 class TestLSHBlocker(unittest.TestCase):

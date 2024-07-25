@@ -1,7 +1,7 @@
-from start_er import Entity, EntityResolver, SimpleBlocker, SimplePreprocessor
-from start_er.matchers import CosineSimilarityMatcher
-from start_er.model_builders import SimpleVectorModelBuilder
-from start_er.preprocessors.preprocessing_functions import (lowercase,
+from rezolva import Entity, EntityResolver, SimpleBlocker, SimplePreprocessor
+from rezolva.matchers import CosineSimilarityMatcher
+from rezolva.model_builders import SimpleVectorModelBuilder
+from rezolva.preprocessors.preprocessing_functions import (lowercase,
                                                             remove_punctuation,
                                                             strip_whitespace)
 

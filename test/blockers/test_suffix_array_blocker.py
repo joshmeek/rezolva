@@ -1,8 +1,8 @@
 import unittest
 
-from start_er.blockers.suffix_array_blocker import (SuffixArrayBlocker,
+from rezolva.blockers.suffix_array_blocker import (SuffixArrayBlocker,
                                                     default_key_func)
-from start_er.core.base import Entity
+from rezolva.core.base import Entity
 
 
 class TestSuffixArrayBlocker(unittest.TestCase):

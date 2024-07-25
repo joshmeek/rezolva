@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.model_builders.simple_model_builder import SimpleModelBuilder
+from rezolva.core.base import Entity
+from rezolva.model_builders.simple_model_builder import SimpleModelBuilder
 
 
 class TestSimpleModelBuilder(unittest.TestCase):

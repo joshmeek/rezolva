@@ -1,7 +1,7 @@
 import math
 from typing import Dict, List, Tuple
 
-from start_er import Entity, EntityResolver
+from rezolva import Entity, EntityResolver
 
 
 def calculate_precision_recall_f1(

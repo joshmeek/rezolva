@@ -2,8 +2,8 @@ import csv
 import os
 import unittest
 
-from start_er.core.base import Entity
-from start_er.data_handlers.csv_handlers import CSVDataLoader, CSVDataSaver
+from rezolva.core.base import Entity
+from rezolva.data_handlers.csv_handlers import CSVDataLoader, CSVDataSaver
 
 
 class TestCSVHandlers(unittest.TestCase):

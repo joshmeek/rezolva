@@ -1,8 +1,8 @@
-# start-er
+# rezolva
 
 **Entity resolution for everyone. Minimal. No dependencies.**
 
-_**start-er**_ (pronounced _starter_ because why not?) is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects. _(it is also very much a work in progress)_
+_**rezolva**_ (must say with a New York accent, because why not?) is a lightweight, flexible, and extensible entity resolution library implemented in pure Python. It's designed for simplicity, educational purposes, and easy integration into larger projects. _(it is also very much a work in progress)_
 
 ## Features
 
@@ -16,17 +16,17 @@ _**start-er**_ (pronounced _starter_ because why not?) is a lightweight, flexibl
 ## Installation
 
 ```bash
-pip install start-er
+pip install rezolva
 ```
 
 ## Quick Start
 
-Here's a simple example of how to use start-er:
+Here's a simple example of how to use rezolva:
 
 ```python
-from start_er import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
-from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
+from rezolva import Entity, EntityResolver, SimpleBlocker, SimpleModelBuilder, SimplePreprocessor
+from rezolva.matchers import CosineSimilarityMatcher
+from rezolva.preprocessors.preprocessing_functions import lowercase, strip_whitespace, remove_punctuation
 
 # Set up components
 preprocessor = SimplePreprocessor([lowercase, strip_whitespace, remove_punctuation])
@@ -61,11 +61,11 @@ for entity, matches in results:
 
 ## Advanced Usage
 
-For more advanced examples, including custom preprocessing, different matching algorithms, model saving/loading, deduplication, and more, please check the [`examples`](https://github.com/joshmeek/start-er/tree/main/examples) directory in the repository.
+For more advanced examples, including custom preprocessing, different matching algorithms, model saving/loading, deduplication, and more, please check the [`examples`](https://github.com/joshmeek/rezolva/tree/main/examples) directory in the repository.
 
 ## Customization
 
-You can extend start-er by creating custom implementations of its components:
+You can extend rezolva by creating custom implementations of its components:
 
 1. Subclass the base component classes (`Preprocessor`, `ModelBuilder`, `Matcher`, `Blocker`)
 2. Implement the required methods with your custom logic
@@ -73,7 +73,7 @@ You can extend start-er by creating custom implementations of its components:
 
 ## Contributing
 
-Contributions to start-er are welcome! Please feel free to submit a Pull Request.
+Contributions to rezolva are welcome! Please feel free to submit a Pull Request.
 
 ## License
 

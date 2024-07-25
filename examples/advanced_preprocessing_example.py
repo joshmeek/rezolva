@@ -1,7 +1,7 @@
-from start_er import (Entity, EntityResolver, SimpleBlocker,
+from rezolva import (Entity, EntityResolver, SimpleBlocker,
                       SimpleModelBuilder, SimplePreprocessor)
-from start_er.matchers import CosineSimilarityMatcher
-from start_er.preprocessors.preprocessing_functions import (extract_initials,
+from rezolva.matchers import CosineSimilarityMatcher
+from rezolva.preprocessors.preprocessing_functions import (extract_initials,
                                                             lowercase,
                                                             normalize_phone,
                                                             remove_accents,

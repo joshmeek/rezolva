@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.base_matcher import BaseAttributeMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.base_matcher import BaseAttributeMatcher
 
 
 class DummyMatcher(BaseAttributeMatcher):

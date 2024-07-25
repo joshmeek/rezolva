@@ -1,4 +1,4 @@
-# start_er/matchers/bayesian_matcher.py
+# rezolva/matchers/bayesian_matcher.py
 
 import math
 from typing import Dict, List, Tuple

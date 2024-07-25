@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.preprocessors.simple_preprocessor import SimplePreprocessor
+from rezolva.core.base import Entity
+from rezolva.preprocessors.simple_preprocessor import SimplePreprocessor
 
 
 class TestSimplePreprocessor(unittest.TestCase):

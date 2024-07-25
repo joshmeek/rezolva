@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.levenshtein_matcher import LevenshteinMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.levenshtein_matcher import LevenshteinMatcher
 
 
 class TestLevenshteinMatcher(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.matchers.jaccard_matcher import JaccardMatcher
+from rezolva.core.base import Entity
+from rezolva.matchers.jaccard_matcher import JaccardMatcher
 
 
 class TestJaccardMatcher(unittest.TestCase):

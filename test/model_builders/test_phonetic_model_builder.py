@@ -1,7 +1,7 @@
 import unittest
 
-from start_er.core.base import Entity
-from start_er.model_builders.phonetic_model_builder import PhoneticModelBuilder
+from rezolva.core.base import Entity
+from rezolva.model_builders.phonetic_model_builder import PhoneticModelBuilder
 
 
 class TestPhoneticModelBuilder(unittest.TestCase):

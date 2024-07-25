@@ -1,8 +1,8 @@
 import unittest
 
-from start_er.blockers.sorted_neighborhood_blocker import (
+from rezolva.blockers.sorted_neighborhood_blocker import (
     SortedNeighborhoodBlocker, default_key_func)
-from start_er.core.base import Entity
+from rezolva.core.base import Entity
 
 
 class TestSortedNeighborhoodBlocker(unittest.TestCase):
