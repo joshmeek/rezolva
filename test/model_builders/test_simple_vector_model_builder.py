@@ -47,12 +47,40 @@ class TestSimpleVectorModelBuilder(unittest.TestCase):
         ]
         model = self.model_builder.train(entities)
 
-        # TODO: Fix rounding and idf calculation
-        # expected_idf_software = math.log(3 / 2)  # appears in 2 out of 3 documents
-        # self.assertAlmostEqual(model['idf']['software'], expected_idf_software)
+        expected_idf_software = math.log(3 / 3)  # appears in 2 out of 3 documents, but +1 for smoothing
+        self.assertAlmostEqual(model["idf"]["software"], expected_idf_software, places=6)
 
-        # expected_idf_data = math.log(3 / 1)  # appears in 1 out of 3 documents
-        # self.assertAlmostEqual(model['idf']['data'], expected_idf_data)
+        expected_idf_data = math.log(3 / 2)  # appears in 1 out of 3 documents, but +1 for smoothing
+        self.assertAlmostEqual(model["idf"]["data"], expected_idf_data, places=6)
+
+    def test_vector_calculation(self):
+        entities = [
+            Entity("1", {"name": "John Doe", "description": "Software Engineer"}),
+            Entity("2", {"name": "Jane Smith", "description": "Data Scientist"}),
+        ]
+        model = self.model_builder.train(entities)
+
+        # Check vector for "John Doe"
+        john_vector = model["vectors"]["1"]
+        self.assertIn("john", john_vector)
+        self.assertIn("software", john_vector)
+        self.assertNotIn("data", john_vector)
+
+        # Verify TF-IDF calculation
+        tf_john = 1 / 4  # "john" appears once in a total of 4 words
+        idf_john = math.log(2 / 2)  # "john" appears in 1 out of 2 documents, but +1 for smoothing
+        expected_tfidf_john = tf_john * idf_john
+        self.assertAlmostEqual(john_vector["john"], expected_tfidf_john, places=6)
+
+    def test_empty_entity(self):
+        entities = [Entity("1", {"name": "", "description": ""})]
+        model = self.model_builder.train(entities)
+        self.assertEqual(len(model["vectors"]["1"]), 0)
+
+    def test_non_string_attribute(self):
+        entities = [Entity("1", {"name": "John Doe", "description": 12345})]
+        model = self.model_builder.train(entities)
+        self.assertIn("12345", model["vectors"]["1"])
 
 
 if __name__ == "__main__":
