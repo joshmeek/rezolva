@@ -1,0 +1,39 @@
+# Project docker compose file to start up postgres.
+#
+# 1. Set the postgres variables in proj.env
+# 2. Update load-extensions.sh to create the extensions you want loaded
+# 3. Upon running for the first time, the container will be created and the database initialized
+# 4. Subsequent times you run, the database will already be initialized
+# 5. Deleting the container removes the content
+#
+#
+#  To run in the foreground (easiest)
+#  > docker-compose up
+#
+#  To run in the background and tail the logs
+#  > docker-compose up -d
+#  > docker-compose logs -f
+#
+#  Subsequent builds (if you change pg-Dockerfile)
+#  > docker-compose build
+#
+version: "3.7"
+services:
+  database:
+    image: 'ankane/pgvector'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=vectordb
+      - POSTGRES_USER=vectoruser
+    # You can put all of your env vars in env_file, but you may also only
+    # want to put secrets in it and put the file in .gitignore
+    env_file:
+      - .env
+    # Uncomment the following if you really want to keep your postgres data around
+    # on your disk. This will write to a local directory called 'db-data'
+    # volumes:
+    #   - ./db-data:/var/lib/postgresql/data
