@@ -1,1 +1,1 @@
-from .hierarchical_clustering import HierarchicalClustering
+from .hierarchical_cluster import HierarchicalCluster

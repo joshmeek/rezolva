@@ -81,8 +81,8 @@ class Matcher(ABC):
     Subclasses should implement the `match` method to define specific matching logic.
     """
 
-    def __init__(self, clustering_algo: Optional[ClusteringAlgorithm] = None):
-        self.clustering_algorithm = clustering_algo
+    def __init__(self, clustering_algorithm: Optional[ClusteringAlgorithm] = None):
+        self.clustering_algorithm = clustering_algorithm
 
     @abstractmethod
     def match(self, entity: Entity, candidates: List[Entity]) -> List[Tuple[Entity, float]]:

@@ -3,7 +3,7 @@ from typing import List, Tuple
 from ..core.base import ClusteringAlgorithm, Entity
 
 
-class HierarchicalClustering(ClusteringAlgorithm):
+class HierarchicalCluster(ClusteringAlgorithm):
     """
     Hierarchical clustering algorithm for entity resolution.
 
@@ -24,7 +24,6 @@ class HierarchicalClustering(ClusteringAlgorithm):
             min_dist = float("inf")
             min_pair = None
 
-            # Find the closest pair of clusters
             for i, cluster1 in enumerate(clusters):
                 for j, cluster2 in enumerate(clusters[i + 1 :], i + 1):
                     dist = self._calculate_cluster_distance(cluster1, cluster2)
@@ -32,16 +31,13 @@ class HierarchicalClustering(ClusteringAlgorithm):
                         min_dist = dist
                         min_pair = (i, j)
 
-            # If the minimum distance is greater than the threshold, stop clustering
             if min_dist > self.threshold:
                 break
 
-            # Merge the closest clusters
             i, j = min_pair
             clusters[i].extend(clusters[j])
             clusters.pop(j)
 
-        # Sort entities within each cluster by their similarity score
         return [sorted(cluster, key=lambda x: x[1], reverse=True) for cluster in clusters]
 
     def _calculate_cluster_distance(
