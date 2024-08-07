@@ -68,7 +68,7 @@ class EntityResolver:
                 continue
 
             candidates = self.blocks.get(entity_block, set())
-            matches = self._find_matches(preprocessed_entity, candidates, top_k)
+            matches = self._find_matches(preprocessed_entity, candidates)
 
             if hasattr(self.matcher, "clustering_algorithm") and self.matcher.clustering_algorithm is not None:
                 top_matches = list(itertools.chain(*[cluster[:top_k] for cluster in matches]))
@@ -79,14 +79,14 @@ class EntityResolver:
 
         return results
 
-    def _find_matches(self, entity: Entity, candidates: set, top_k: int) -> List[Tuple[Entity, float]]:
+    def _find_matches(self, entity: Entity, candidates: set) -> List[Tuple[Entity, float]]:
         candidate_entities = {
             id: self.preprocessed_entities[id] for id in candidates if id in self.preprocessed_entities
         }
         matches = self.matcher.match(entity, {"entities": candidate_entities})
 
         if hasattr(self.matcher, "clustering_algorithm") and self.matcher.clustering_algorithm is not None:
-            return list(itertools.chain(*matches)) if isinstance(matches[0], list) else matches
+            return list(itertools.chain(*matches)) if matches and isinstance(matches[0], list) else matches
         else:
             return matches
 
