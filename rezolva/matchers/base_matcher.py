@@ -1,6 +1,6 @@
 from typing import Dict, List, Tuple
 
-from ..core.base import Entity, Matcher
+from ..core.base import Entity, Matcher, ClusteringAlgorithm
 
 
 class BaseAttributeMatcher(Matcher):
@@ -12,9 +12,11 @@ class BaseAttributeMatcher(Matcher):
 
     :param threshold: The similarity threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
-    def __init__(self, threshold: float = 0.7, attribute_weights: Dict[str, float] = None):
+    def __init__(self, threshold: float = 0.7, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None):
+        super().__init__(clustering_algorithm)
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}
 
@@ -25,7 +27,7 @@ class BaseAttributeMatcher(Matcher):
                 similarity = self._calculate_weighted_similarity(entity, candidate)
                 if similarity >= self.threshold:
                     matches.append((candidate, similarity))
-        return sorted(matches, key=lambda x: x[1], reverse=True)
+        return self.apply_clustering(sorted(matches, key=lambda x: x[1], reverse=True))
 
     def _calculate_weighted_similarity(self, entity1: Entity, entity2: Entity) -> float:
         similarities = []

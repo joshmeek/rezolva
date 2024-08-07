@@ -1,7 +1,7 @@
 import hashlib
 from typing import Dict, List, Tuple
 
-from ..core.base import Entity, Matcher
+from ..core.base import Entity, Matcher, ClusteringAlgorithm
 
 
 class MinHashMatcher(Matcher):
@@ -28,11 +28,13 @@ class MinHashMatcher(Matcher):
     :param threshold: The similarity threshold above which entities are considered a match
     :param num_hash_functions: The number of hash functions to use for MinHash
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
     def __init__(
-        self, threshold: float = 0.5, num_hash_functions: int = 100, attribute_weights: Dict[str, float] = None
+        self, threshold: float = 0.5, num_hash_functions: int = 100, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None
     ):
+        super().__init__(clustering_algorithm)
         self.threshold = threshold
         self.num_hash_functions = num_hash_functions
         self.attribute_weights = attribute_weights or {}
@@ -61,7 +63,7 @@ class MinHashMatcher(Matcher):
                 if similarity >= self.threshold:
                     matches.append((candidate, similarity))
 
-        return sorted(matches, key=lambda x: x[1], reverse=True)
+        return self.apply_clustering(sorted(matches, key=lambda x: x[1], reverse=True))
 
     def _calculate_weighted_similarity(self, entity_signatures: Dict[str, List[int]], candidate: Entity) -> float:
         similarities = []

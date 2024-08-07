@@ -3,7 +3,7 @@
 import math
 from typing import Dict, List, Tuple
 
-from ..core.base import Entity, Matcher
+from ..core.base import Entity, Matcher, ClusteringAlgorithm
 
 
 class BayesianMatcher(Matcher):
@@ -30,9 +30,11 @@ class BayesianMatcher(Matcher):
 
     :param threshold: The probability threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
-    def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):
+    def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None):
+        super().__init__(clustering_algorithm)
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}
         self.attribute_probabilities = {}
@@ -56,7 +58,7 @@ class BayesianMatcher(Matcher):
                 similarity = self._calculate_similarity(entity, candidate)
                 if similarity >= self.threshold:
                     matches.append((candidate, similarity))
-        return sorted(matches, key=lambda x: x[1], reverse=True)
+        return self.apply_clustering(sorted(matches, key=lambda x: x[1], reverse=True))
 
     def _calculate_similarity(self, entity1: Entity, entity2: Entity) -> float:
         total_similarity = 0

@@ -1,7 +1,7 @@
 import random
 from typing import Dict, List, Tuple
 
-from ..core.base import Entity, Matcher
+from ..core.base import Entity, Matcher, ClusteringAlgorithm
 
 
 class DecisionTreeNode:
@@ -37,9 +37,11 @@ class DecisionTreeMatcher(Matcher):
 
     :param attributes: A list of attributes to consider for matching
     :param max_depth: The maximum depth of the decision tree
+    :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
-    def __init__(self, attributes: List[str], max_depth: int = 3):
+    def __init__(self, attributes: List[str], max_depth: int = 3, clustering_algorithm: ClusteringAlgorithm = None):
+        super().__init__(clustering_algorithm)
         self.attributes = attributes
         self.max_depth = max_depth
         self.tree = None
@@ -54,7 +56,7 @@ class DecisionTreeMatcher(Matcher):
                 similarity = self._predict(entity, candidate)
                 if similarity > 0.5:
                     matches.append((candidate, similarity))
-        return sorted(matches, key=lambda x: x[1], reverse=True)
+        return self.apply_clustering(sorted(matches, key=lambda x: x[1], reverse=True))
 
     def _build_tree(self, pairs: List[Tuple[Entity, Entity]], labels: List[bool], depth: int) -> DecisionTreeNode:
         if depth == self.max_depth or len(set(labels)) == 1:

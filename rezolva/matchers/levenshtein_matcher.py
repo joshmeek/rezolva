@@ -25,6 +25,7 @@ class LevenshteinMatcher(BaseAttributeMatcher):
 
     :param threshold: The similarity threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
     def _calculate_attribute_similarity(self, val1: str, val2: str) -> float:

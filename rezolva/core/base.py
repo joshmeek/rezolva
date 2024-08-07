@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Optional
 
 
 class Entity:
@@ -53,6 +53,20 @@ class ModelBuilder(ABC):
     def update(self, model: Any, new_entities: List[Entity]) -> Any:
         pass
 
+class ClusteringAlgorithm(ABC):
+    """
+    Abstract base class for clustering algorithms in entity resolution.
+
+    This class defines the interface for clustering algorithms that can be used
+    in combination with matchers to group similar entities together.
+
+    Subclasses should implement the `cluster` method to define specific
+    clustering logic.
+    """
+
+    @abstractmethod
+    def cluster(self, matches: List[Tuple[Entity, float]]) -> List[List[Tuple[Entity, float]]]:
+        pass
 
 class Matcher(ABC):
     """
@@ -64,10 +78,18 @@ class Matcher(ABC):
 
     Subclasses should implement the `match` method to define specific matching logic.
     """
+    def __init__(self, clustering_algo: Optional[ClusteringAlgorithm] = None):
+        self.clustering_algorithm = clustering_algo
 
     @abstractmethod
     def match(self, entity: Entity, candidates: List[Entity]) -> List[Tuple[Entity, float]]:
         pass
+
+    def apply_clustering(self, matches: List[Tuple[Entity, float]]) -> List[List[Tuple[Entity, float]]]:
+        if self.clustering_algorithm:
+            return self.clustering_algorithm.cluster(matches)
+        else:
+            return matches
 
 
 class Blocker(ABC):

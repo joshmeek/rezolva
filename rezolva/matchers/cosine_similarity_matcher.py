@@ -1,7 +1,7 @@
 import math
 from typing import Dict, List, Tuple, Union
 
-from ..core.base import Entity
+from ..core.base import Entity, ClusteringAlgorithm
 from .base_matcher import BaseAttributeMatcher
 
 
@@ -28,10 +28,11 @@ class CosineSimilarityMatcher(BaseAttributeMatcher):
 
     :param threshold: The similarity threshold above which entities are considered a match
     :param attribute_weights: A dictionary mapping attribute names to their importance in matching
+    :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
-    def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None):
-        super().__init__(threshold, attribute_weights)
+    def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None):
+        super().__init__(threshold, attribute_weights, clustering_algorithm)
 
     def match(self, entity: Entity, model: dict) -> List[Tuple[Entity, float]]:
         matches = []
@@ -52,7 +53,7 @@ class CosineSimilarityMatcher(BaseAttributeMatcher):
                     if similarity >= self.threshold:
                         matches.append((candidate, similarity))
 
-        return sorted(matches, key=lambda x: x[1], reverse=True)
+        return self.apply_clustering(sorted(matches, key=lambda x: x[1], reverse=True))
 
     def _calculate_weighted_similarity(self, entity1: Entity, entity2: Entity) -> float:
         similarities = []
