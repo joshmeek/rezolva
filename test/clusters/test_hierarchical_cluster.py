@@ -1,8 +1,9 @@
 import unittest
 from typing import List, Tuple
 
-from rezolva.core.base import Entity
 from rezolva.clusters import HierarchicalCluster
+from rezolva.core.base import Entity
+
 
 class TestHierarchicalCluster(unittest.TestCase):
     def setUp(self):
@@ -19,20 +20,14 @@ class TestHierarchicalCluster(unittest.TestCase):
         self.assertEqual(result[0], matches)
 
     def test_cluster_two_close_entities(self):
-        matches = [
-            (Entity("1", {"name": "John"}), 0.9),
-            (Entity("2", {"name": "Jon"}), 0.8)
-        ]
+        matches = [(Entity("1", {"name": "John"}), 0.9), (Entity("2", {"name": "Jon"}), 0.8)]
         result = self.clustering.cluster(matches)
         self.assertEqual(len(result), 1)
         self.assertEqual(len(result[0]), 2)
         self.assertEqual(result[0][0], matches[0])  # Higher score should be first
 
     def test_cluster_two_distant_entities(self):
-        matches = [
-            (Entity("1", {"name": "John"}), 0.9),
-            (Entity("2", {"name": "Alice"}), 0.8)
-        ]
+        matches = [(Entity("1", {"name": "John"}), 0.9), (Entity("2", {"name": "Alice"}), 0.8)]
         clustering = HierarchicalCluster(0.01)  # Very low threshold
         result = clustering.cluster(matches)
         self.assertEqual(len(result), 2)
@@ -44,17 +39,17 @@ class TestHierarchicalCluster(unittest.TestCase):
             (Entity("1", {"name": "John"}), 0.9),
             (Entity("2", {"name": "Jon"}), 0.85),
             (Entity("3", {"name": "Jane"}), 0.8),
-            (Entity("4", {"name": "Alice"}), 0.75)
+            (Entity("4", {"name": "Alice"}), 0.75),
         ]
         result = self.clustering.cluster(matches)
-        
+
         # Check that we have at least one cluster
         self.assertGreater(len(result), 0)
-        
+
         # Check that all entities are present in the result
         all_entities = [entity for cluster in result for entity, _ in cluster]
         self.assertEqual(len(all_entities), len(matches))
-        
+
         # Check that entities are sorted by score within each cluster
         for cluster in result:
             scores = [score for _, score in cluster]
@@ -69,7 +64,7 @@ class TestHierarchicalCluster(unittest.TestCase):
         matches = [
             (Entity("1", {"name": "John"}), 0.8),
             (Entity("2", {"name": "Jon"}), 0.9),
-            (Entity("3", {"name": "Jane"}), 0.7)
+            (Entity("3", {"name": "Jane"}), 0.7),
         ]
         result = self.clustering.cluster(matches)
         self.assertEqual(result[0][0][1], 0.9)  # Highest score should be first
@@ -85,5 +80,6 @@ class TestHierarchicalCluster(unittest.TestCase):
         result = self.clustering.cluster([])
         self.assertEqual(result, [])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
