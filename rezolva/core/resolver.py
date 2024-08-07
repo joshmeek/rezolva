@@ -64,21 +64,31 @@ class EntityResolver:
             )
 
             if entity_block is None:
+                results.append((entity, []))
                 continue
 
             candidates = self.blocks.get(entity_block, set())
-            matches = self._find_matches(preprocessed_entity, candidates, top_k)
-            if matches:
-                results.append((entity, matches))
+            matches = self._find_matches(preprocessed_entity, candidates)
+
+            if hasattr(self.matcher, "clustering_algorithm") and self.matcher.clustering_algorithm is not None:
+                top_matches = list(itertools.chain(*[cluster[:top_k] for cluster in matches]))
+            else:
+                top_matches = matches[:top_k]
+
+            results.append((entity, top_matches))
 
         return results
 
-    def _find_matches(self, entity: Entity, candidates: set, top_k: int) -> List[Tuple[Entity, float]]:
+    def _find_matches(self, entity: Entity, candidates: set) -> List[Tuple[Entity, float]]:
         candidate_entities = {
             id: self.preprocessed_entities[id] for id in candidates if id in self.preprocessed_entities
         }
         matches = self.matcher.match(entity, {"entities": candidate_entities})
-        return sorted(matches, key=lambda x: x[1], reverse=True)[:top_k]
+
+        if hasattr(self.matcher, "clustering_algorithm") and self.matcher.clustering_algorithm is not None:
+            return list(itertools.chain(*matches)) if matches and isinstance(matches[0], list) else matches
+        else:
+            return matches
 
     def update_model(self, new_entities: List[Entity]):
         new_preprocessed = {e.id: self.preprocessor.preprocess(e) for e in new_entities}
