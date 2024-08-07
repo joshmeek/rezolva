@@ -1,7 +1,7 @@
 import hashlib
 from typing import Dict, List, Tuple
 
-from ..core.base import Entity, Matcher, ClusteringAlgorithm
+from ..core.base import ClusteringAlgorithm, Entity, Matcher
 
 
 class MinHashMatcher(Matcher):
@@ -32,7 +32,11 @@ class MinHashMatcher(Matcher):
     """
 
     def __init__(
-        self, threshold: float = 0.5, num_hash_functions: int = 100, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None
+        self,
+        threshold: float = 0.5,
+        num_hash_functions: int = 100,
+        attribute_weights: Dict[str, float] = None,
+        clustering_algorithm: ClusteringAlgorithm = None,
     ):
         super().__init__(clustering_algorithm)
         self.threshold = threshold

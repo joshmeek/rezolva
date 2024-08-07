@@ -69,8 +69,8 @@ class EntityResolver:
 
             candidates = self.blocks.get(entity_block, set())
             matches = self._find_matches(preprocessed_entity, candidates, top_k)
-            
-            if hasattr(self.matcher, 'clustering_algorithm') and self.matcher.clustering_algorithm is not None:
+
+            if hasattr(self.matcher, "clustering_algorithm") and self.matcher.clustering_algorithm is not None:
                 top_matches = list(itertools.chain(*[cluster[:top_k] for cluster in matches]))
             else:
                 top_matches = matches[:top_k]
@@ -79,18 +79,16 @@ class EntityResolver:
 
         return results
 
-
     def _find_matches(self, entity: Entity, candidates: set, top_k: int) -> List[Tuple[Entity, float]]:
         candidate_entities = {
             id: self.preprocessed_entities[id] for id in candidates if id in self.preprocessed_entities
         }
         matches = self.matcher.match(entity, {"entities": candidate_entities})
-        
-        if hasattr(self.matcher, 'clustering_algorithm') and self.matcher.clustering_algorithm is not None:
+
+        if hasattr(self.matcher, "clustering_algorithm") and self.matcher.clustering_algorithm is not None:
             return list(itertools.chain(*matches)) if isinstance(matches[0], list) else matches
         else:
             return matches
-
 
     def update_model(self, new_entities: List[Entity]):
         new_preprocessed = {e.id: self.preprocessor.preprocess(e) for e in new_entities}

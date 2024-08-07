@@ -1,5 +1,7 @@
-from ..core.base import Entity, ClusteringAlgorithm
 from typing import List, Tuple
+
+from ..core.base import ClusteringAlgorithm, Entity
+
 
 class HierarchicalClustering(ClusteringAlgorithm):
     """
@@ -19,12 +21,12 @@ class HierarchicalClustering(ClusteringAlgorithm):
         clusters = [[m] for m in matches]
 
         while len(clusters) > 1:
-            min_dist = float('inf')
+            min_dist = float("inf")
             min_pair = None
 
             # Find the closest pair of clusters
             for i, cluster1 in enumerate(clusters):
-                for j, cluster2 in enumerate(clusters[i+1:], i+1):
+                for j, cluster2 in enumerate(clusters[i + 1 :], i + 1):
                     dist = self._calculate_cluster_distance(cluster1, cluster2)
                     if dist < min_dist:
                         min_dist = dist
@@ -42,5 +44,7 @@ class HierarchicalClustering(ClusteringAlgorithm):
         # Sort entities within each cluster by their similarity score
         return [sorted(cluster, key=lambda x: x[1], reverse=True) for cluster in clusters]
 
-    def _calculate_cluster_distance(self, cluster1: List[Tuple[Entity, float]], cluster2: List[Tuple[Entity, float]]) -> float:
+    def _calculate_cluster_distance(
+        self, cluster1: List[Tuple[Entity, float]], cluster2: List[Tuple[Entity, float]]
+    ) -> float:
         return min(1 - score1 for _, score1 in cluster1 for _, score2 in cluster2)

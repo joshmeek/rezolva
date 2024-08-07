@@ -1,7 +1,7 @@
 import math
 from typing import Dict, List
 
-from ..core.base import Entity, ClusteringAlgorithm
+from ..core.base import ClusteringAlgorithm, Entity
 from .base_matcher import BaseAttributeMatcher
 
 
@@ -30,7 +30,12 @@ class TfIdfMatcher(BaseAttributeMatcher):
     :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
-    def __init__(self, threshold: float = 0.3, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None):
+    def __init__(
+        self,
+        threshold: float = 0.3,
+        attribute_weights: Dict[str, float] = None,
+        clustering_algorithm: ClusteringAlgorithm = None,
+    ):
         super().__init__(threshold, attribute_weights, clustering_algorithm)
         self.idf = {}
         self.doc_count = 0

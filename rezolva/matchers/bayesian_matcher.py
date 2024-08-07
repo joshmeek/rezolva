@@ -3,7 +3,7 @@
 import math
 from typing import Dict, List, Tuple
 
-from ..core.base import Entity, Matcher, ClusteringAlgorithm
+from ..core.base import ClusteringAlgorithm, Entity, Matcher
 
 
 class BayesianMatcher(Matcher):
@@ -33,7 +33,12 @@ class BayesianMatcher(Matcher):
     :param clustering_algorithm: A ClusteringAlgorithm object for clustring matched results
     """
 
-    def __init__(self, threshold: float = 0.5, attribute_weights: Dict[str, float] = None,  clustering_algorithm: ClusteringAlgorithm = None):
+    def __init__(
+        self,
+        threshold: float = 0.5,
+        attribute_weights: Dict[str, float] = None,
+        clustering_algorithm: ClusteringAlgorithm = None,
+    ):
         super().__init__(clustering_algorithm)
         self.threshold = threshold
         self.attribute_weights = attribute_weights or {}

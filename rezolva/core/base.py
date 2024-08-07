@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class Entity:
@@ -53,6 +53,7 @@ class ModelBuilder(ABC):
     def update(self, model: Any, new_entities: List[Entity]) -> Any:
         pass
 
+
 class ClusteringAlgorithm(ABC):
     """
     Abstract base class for clustering algorithms in entity resolution.
@@ -68,6 +69,7 @@ class ClusteringAlgorithm(ABC):
     def cluster(self, matches: List[Tuple[Entity, float]]) -> List[List[Tuple[Entity, float]]]:
         pass
 
+
 class Matcher(ABC):
     """
     Abstract base class for matchers in the entity resolution pipeline.
@@ -78,6 +80,7 @@ class Matcher(ABC):
 
     Subclasses should implement the `match` method to define specific matching logic.
     """
+
     def __init__(self, clustering_algo: Optional[ClusteringAlgorithm] = None):
         self.clustering_algorithm = clustering_algo
 
