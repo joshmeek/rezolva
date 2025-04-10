@@ -73,7 +73,7 @@ You can extend rezolva by creating custom implementations of its components:
 
 ## Contributing
 
-Contributions to rezolva are welcome! Please feel free to submit a Pull Request.
+As this project is no longer maintained, contributions are not being accepted but feel free to reach out if you want to discuss anything [https://josh.dev](https://josh.dev).
 
 ## License
 
